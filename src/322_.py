@@ -20,7 +20,7 @@ from functools import lru_cache
 
 
 class Solution:
-    """递归. """
+    """dfs. """
 
     def coinChange(self, coins: List[int], amount: int) -> int:
         INT_MAX = int(1e9)
@@ -51,6 +51,8 @@ print(Solution().coinChange(coins, amount))  # 3
 
 
 class Solution2:
+    """动态规划"""
+
     def coinChange(self, coins: List[int], amount: int) -> int:
         # 1. 2.
         INT_MAX = 0x7ff_ffff

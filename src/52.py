@@ -15,6 +15,7 @@ from typing import List, Set
 
 
 class Solution:
+    """回溯"""
     def solveNQueens(self, n: int) -> List[List[str]]:
         ans = []
         ru_diag, lu_diag = set(), set()  # right up, left up

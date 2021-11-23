@@ -62,6 +62,7 @@ def tree_to_str(root: Optional[TreeNode]) -> str:
 
 #
 class Solution:
+    """dfs"""
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         pre_lo, pre_hi = 0, len(preorder)  # [)
         in_lo, in_hi = 0, len(inorder)

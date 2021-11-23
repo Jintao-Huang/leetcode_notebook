@@ -15,6 +15,7 @@ from typing import List, Set
 
 
 class Solution:
+    """回溯"""
     def permute(self, nums: List[int]) -> List[List[int]]:
         ans = []
 

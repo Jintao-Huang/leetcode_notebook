@@ -43,6 +43,7 @@ def build_circle_list(list_: Union[str], pos: int) -> Optional[ListNode]:
 
 
 class Solution:
+    """快慢双指针"""
     def detectCycle(self, head: ListNode) -> Optional[ListNode]:
         fast = slow = head
         while True:

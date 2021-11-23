@@ -17,6 +17,8 @@ from collections import deque
 
 
 class Solution:
+    """bfs"""
+
     def openLock(self, deadends: List[str], target: str) -> int:
 
         ord_9 = ord('9')
@@ -84,4 +86,3 @@ print(Solution().openLock(deadends, target))
 
 class Solution2:
     """双向bfs"""
-    pass

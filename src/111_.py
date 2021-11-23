@@ -7,6 +7,8 @@ https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
 111. 二叉树的最小深度
 - 简单
 - 模板: bfs
+=
+- bfs
 """
 
 from typing import Union, List, Optional, Deque, Tuple
@@ -45,6 +47,7 @@ from collections import deque
 
 
 class Solution:
+    """bfs"""
     def minDepth(self, root: TreeNode) -> int:
         if root is None:
             return 0

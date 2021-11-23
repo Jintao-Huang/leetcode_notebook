@@ -9,7 +9,6 @@ https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
 - 推荐
 =
 - dfs
-- 动态规划
 """
 import json
 from typing import List, Union, Optional, Deque, Tuple, Sequence
@@ -46,6 +45,8 @@ def build_tree(tree: Union[str]) -> Optional[TreeNode]:
 
 #
 class Solution:
+    """dfs"""
+
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         INT_MIN = -0x7fffffff
         ans = INT_MIN
