@@ -8,7 +8,7 @@ https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder
 - 中等
 - 推荐
 =
-- 二叉树的前序遍历
+- dfs
 """
 import json
 from typing import List, Union, Optional, Deque, Tuple, Dict, Sequence
@@ -22,7 +22,7 @@ class TreeNode:
         self.right = right
 
 
-def level_tree(root: Optional[TreeNode]) -> str:
+def tree_to_str(root: Optional[TreeNode]) -> str:
     ans = []
     if root is None:
         return json.dumps(ans)
@@ -96,4 +96,4 @@ preorder = [3, 9, 20, 15, 7]
 inorder = [9, 3, 15, 20, 7]
 
 root = Solution().buildTree(preorder, inorder)
-print(level_tree(root))
+print(tree_to_str(root))

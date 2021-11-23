@@ -8,7 +8,7 @@ https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
 - 困难
 - 推荐
 =
-- 二叉树的后序遍历
+- dfs
 - 动态规划
 """
 import json
@@ -23,9 +23,8 @@ class TreeNode:
         self.right = right
 
 
-def build_tree(tree: Union[str, List]) -> Optional[TreeNode]:
-    if isinstance(tree, str):
-        tree = json.loads(tree)  # type: List[int]
+def build_tree(tree: Union[str]) -> Optional[TreeNode]:
+    tree = json.loads(tree)  # type: List[int]
     #
     if not len(tree):
         return
@@ -73,5 +72,5 @@ class Solution:
 
 
 tree = "[-10, 9, 20, null, null, 15, 7]"
-tree = build_tree(tree)
-print(Solution().maxPathSum(tree))
+root = build_tree(tree)
+print(Solution().maxPathSum(root))

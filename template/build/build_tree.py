@@ -14,7 +14,7 @@ class TreeNode:
         self.right = right  # type: TreeNode
 
 
-def level_tree(root: Optional[TreeNode]) -> str:
+def tree_to_str(root: Optional[TreeNode]) -> str:
     ans = []
     if root is None:
         return json.dumps(ans)
@@ -52,9 +52,8 @@ def level_tree(root: Optional[TreeNode]) -> str:
     return json.dumps(ans)
 
 
-def build_tree(tree: Union[str, List]) -> Optional[TreeNode]:
-    if isinstance(tree, str):
-        tree = json.loads(tree)  # type: List[int]
+def build_tree(tree: Union[str]) -> Optional[TreeNode]:
+    tree = json.loads(tree)  # type: List[int]
     #
     if not len(tree):
         return
@@ -77,5 +76,5 @@ def build_tree(tree: Union[str, List]) -> Optional[TreeNode]:
 # test
 tree = "[-10, 9, 20, null, null, 15, 7]"
 
-tree = build_tree(tree)
-print(level_tree(tree))  # [-10, 9, 20, null, null, 15, 7]
+root = build_tree(tree)
+print(tree_to_str(root))  # [-10, 9, 20, null, null, 15, 7]

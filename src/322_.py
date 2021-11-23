@@ -6,13 +6,14 @@
 https://leetcode-cn.com/problems/coin-change/
 322. 零钱兑换
 - 中等
+- 模板: 动态规划
 - 推荐
 =
 - 动态规划
 - 完全背包问题: 最少, 需装满(=amount)
   凑成[总金额]所需的最少的[硬币个数]
   v: 1; w: coins; C: amount
-- 递归(深搜)
+- dfs
 """
 from typing import List, Tuple
 from functools import lru_cache
