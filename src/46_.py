@@ -6,8 +6,8 @@
 https://leetcode-cn.com/problems/permutations/
 46. 全排列
 - 中等
-- 模板: 回溯
 - 推荐
+- 模板: 回溯
 =
 - 回溯
 """

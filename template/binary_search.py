@@ -2,6 +2,10 @@
 # Email: hjt_study@qq.com
 # Date: 
 
+"""
+或使用`bisect`库
+"""
+from bisect import bisect_right, bisect_left
 from typing import List
 
 
@@ -51,3 +55,11 @@ print(lower_bound(nums, 0))  # 0
 print(lower_bound(nums, 4))  # 5
 print(upper_bound(nums, 0))  # 0
 print(upper_bound(nums, 4))  # 5
+# 同上
+print(bisect_left(nums, 2))
+print(bisect_right(nums, 2))
+#
+print(bisect_left(nums, 0))
+print(bisect_left(nums, 4))
+print(bisect_right(nums, 0))
+print(bisect_right(nums, 4))

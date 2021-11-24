@@ -6,8 +6,8 @@
 https://leetcode-cn.com/problems/coin-change/
 322. 零钱兑换
 - 中等
-- 模板: 动态规划
 - 推荐
+- 模板: 动态规划
 =
 - 动态规划
 - 完全背包问题: 最少, 需装满(=amount)
