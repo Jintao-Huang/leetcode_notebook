@@ -13,31 +13,30 @@ https://leetcode-cn.com/problems/coin-change/
 - 完全背包问题: 最少, 需装满(=amount)
   凑成[总金额]所需的最少的[硬币个数]
   v: 1; w: coins; C: amount
-- dfs
 """
 from typing import List, Tuple
 from functools import lru_cache
 
 
 class Solution:
-    """dfs. """
+    """dfs"""
 
     def coinChange(self, coins: List[int], amount: int) -> int:
         INT_MAX = int(1e9)
 
-        @lru_cache(amount + 1)
-        def _dp(n: int) -> int:
+        @lru_cache(amount + 3)  # 有少量空余
+        def _dp(i: int) -> int:
             nonlocal INT_MAX
             # 1. base
-            if n == 0:
+            if i == 0:
                 return 0
             # 2. dp初始化
             ans = INT_MAX
             # 3. 搜索
             for c in coins:
-                if n - c <= -1:
+                if i - c <= -1:
                     continue
-                ans = min(ans, _dp(n - c) + 1)
+                ans = min(ans, _dp(i - c) + 1)
             return ans
 
         # 4.
@@ -59,17 +58,17 @@ class Solution2:
         dp = [INT_MAX] * (amount + 1)  # [0 - amount]
         dp[0] = 0  # base
         #
-        for n in range(1, amount + 1):  # or i
+        for i in range(1, amount + 1):
             # 3. 搜索
             for c in coins:
-                if n - c <= -1:
+                if i - c <= -1:
                     continue
-                dp[n] = min(dp[n], dp[n - c] + 1)
+                dp[i] = min(dp[i], dp[i - c] + 1)
         # 4.
         ans = dp[-1]
         return -1 if ans == INT_MAX else ans
 
 
-coins = [1, 2, 5]
-amount = 11
+coins = [186, 419, 83, 408]
+amount = 6249
 print(Solution2().coinChange(coins, amount))  # 3
