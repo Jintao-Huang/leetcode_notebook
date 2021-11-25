@@ -6,6 +6,7 @@
 https://leetcode-cn.com/problems/edit-distance/
 72. 编辑距离
 - 困难
+- 推荐
 =
 - 动态规划
 """
@@ -50,7 +51,7 @@ class Solution2:
 
     def minDistance(self, word1: str, word2: str) -> int:
         n1, n2 = len(word1), len(word2)
-        dp = [[0 for _ in range(n2 + 1)].copy() for _ in range(n1 + 1)]  # 初始化
+        dp = [[0 for _ in range(n2 + 1)] for _ in range(n1 + 1)]  # 初始化
         #
         for i in range(n1 + 1):
             for j in range(n2 + 1):

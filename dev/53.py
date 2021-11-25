@@ -15,6 +15,7 @@ from typing import List
 
 
 class Solution:
+    """动态规划"""
     def maxSubArray(self, nums: List[int]) -> int:
         n = len(nums)
         if n == 0:

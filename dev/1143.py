@@ -15,6 +15,8 @@ from functools import lru_cache
 
 
 class Solution:
+    """dfs"""
+
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         """dfs"""
         n1, n2 = len(text1), len(text2)
@@ -41,10 +43,11 @@ print(Solution().longestCommonSubsequence(text1, text2))
 
 
 class Solution2:
+    """动态规划"""
+
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        """dfs"""
         n1, n2 = len(text1), len(text2)
-        dp = [[0 for _ in range(n2 + 1)].copy() for _ in range(n1 + 1)]  # 含base
+        dp = [[0 for _ in range(n2 + 1)] for _ in range(n1 + 1)]  # 含base
         #
         for i in range(1, n1 + 1):
             for j in range(1, n2 + 1):
