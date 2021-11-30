@@ -53,7 +53,7 @@ class Solution:
         if root is None:
             return 0
         #
-        q = deque([root])  # type: Deque[TreeNode]
+        q = deque([root])  # type: Deque[TreeNode]  # 用list(stack)结果一致(每层拓展顺序可随机)
         step = 0
         #
         while len(q) > 0:
