@@ -139,3 +139,30 @@ class Solution3:
 s = "bbbab"
 print(Solution3().longestPalindromeSubseq(s))
 print(Solution3().longestPalindromeSubseq2(s))
+
+
+class Solution4:
+    """动态规划 + 状态压缩"""
+
+    def longestPalindromeSubseq(self, s: str) -> int:
+        n = len(s)
+        dp = [0 for _ in range(n + 1)]  # [i...j). 省略i
+        # base
+        for i in range(1, n + 1):
+            dp[i] = 1
+        #
+        for i in reversed(range(n)):
+            prev = 0  # dp[i + 1][j - 1]
+            for j in range(i + 2, n + 1):
+                temp = dp[j]
+                if s[i] == s[j - 1]:
+                    dp[j] = prev + 2
+                else:
+                    dp[j] = max(dp[j], dp[j - 1])
+                prev = temp
+        return dp[n]
+
+
+s = "bbbab"
+print(Solution3().longestPalindromeSubseq(s))
+print(Solution3().longestPalindromeSubseq2(s))
