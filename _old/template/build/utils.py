@@ -12,7 +12,7 @@ class ListNode:
         self.next = None
 
 
-def build_circle_list(list_: Union[str], pos: int) -> Optional[ListNode]:
+def build_circle_list(list_: Union[str, List[int]], pos: int) -> Optional[ListNode]:
     """pos=-1: 没有环. 142."""
     list_ = json.loads(list_)  # type: List[int]
     if not len(list_):

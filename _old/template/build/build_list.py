@@ -22,8 +22,9 @@ def list_to_str(head: Optional[ListNode]) -> str:
     return json.dumps(ans)
 
 
-def build_list(list_: Union[str]) -> Optional[ListNode]:
-    list_ = json.loads(list_)  # type: List[int]
+def build_list(list_: Union[str, List[int]]) -> Optional[ListNode]:
+    if isinstance(list_, str):
+        list_ = json.loads(list_)  # type: List[int]
     if not len(list_):
         return
     prev = head = ListNode(list_[0])
