@@ -6,7 +6,7 @@ import heapq
 
 class PriorityQueue:
     def __init__(self, initial_list=None):
-        queue = initial_list if initial_list else []
+        queue = initial_list or []
         heapq.heapify(queue)
         #
         self._queue = queue
