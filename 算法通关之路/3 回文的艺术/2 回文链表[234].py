@@ -2,25 +2,8 @@
 # Email: hjt_study@qq.com
 # Date: 
 
-from typing import Union, Optional, List
-import json
 
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
-def build_list(list_: str) -> Optional[ListNode]:
-    list_ = json.loads(list_)  # type: List[int]
-    if not len(list_):
-        return
-    prev = head = ListNode(list_[0])
-    for node in list_[1:]:
-        prev.next = ListNode(node)
-        prev = prev.next
-    return head
+from template.build.build_list import build_list, ListNode
 
 
 def reverse_list(head: ListNode) -> ListNode:
@@ -35,6 +18,7 @@ def reverse_list(head: ListNode) -> ListNode:
 
 class Solution:
     """快慢指针, 链表反转. Ot(N) Os(1)"""
+
     def isPalindrome(self, head: ListNode) -> bool:
         slow, fast = head, head
         prev = None

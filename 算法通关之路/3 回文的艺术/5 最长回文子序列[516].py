@@ -2,12 +2,15 @@
 # Email: hjt_study@qq.com
 # Date: 
 
+from typing import List
+
+
 class Solution:
     """记忆库. Ot(N^2) Os(N^2)"""
 
     def __init__(self):
-        self.dp = None
-        self.s = None
+        self.dp: List[List[int]]
+        self.s: str
 
     def _dp(self, i: int, j: int) -> int:
 

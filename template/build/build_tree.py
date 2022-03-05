@@ -52,8 +52,9 @@ def tree_to_str(root: Optional[TreeNode]) -> str:
     return json.dumps(ans)
 
 
-def build_tree(tree: Union[str]) -> Optional[TreeNode]:
-    tree = json.loads(tree)  # type: List[int]
+def build_tree(tree: Union[str, List[int]]) -> Optional[TreeNode]:
+    if isinstance(tree, str):
+        tree = json.loads(tree)  # type: List[int]
     #
     if not len(tree):
         return
@@ -74,7 +75,8 @@ def build_tree(tree: Union[str]) -> Optional[TreeNode]:
 
 
 # test
-tree = "[-10, 9, 20, null, null, 15, 7]"
+if __name__ == '__main__':
+    tree = "[-10, 9, 20, null, null, 15, 7]"
 
-root = build_tree(tree)
-print(tree_to_str(root))  # [-10, 9, 20, null, null, 15, 7]
+    root = build_tree(tree)
+    print(tree_to_str(root))  # [-10, 9, 20, null, null, 15, 7]

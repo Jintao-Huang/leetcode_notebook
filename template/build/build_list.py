@@ -34,6 +34,7 @@ def build_list(list_: Union[str, List[int]]) -> Optional[ListNode]:
     return head
 
 
-list_ = "[3,2,0,-4]"
-head = build_list(list_)
-print(list_to_str(head))  # [3, 2, 0, -4]
+if __name__ == '__main__':
+    list_ = "[3,2,0,-4]"
+    head = build_list(list_)
+    print(list_to_str(head))  # [3, 2, 0, -4]

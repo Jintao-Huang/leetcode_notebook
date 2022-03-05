@@ -2,18 +2,18 @@
 # Email: hjt_study@qq.com
 # Date:
 
-from typing import List, Set
+from typing import List, Set, Tuple
 
 
 class Solution:
     """回溯"""
 
     def __init__(self):
-        self.rows = None
-        self.cols = None
-        self.boxes = None
-        self.pos_list = None
-        self.board = None
+        self.rows: List[Set[int]]
+        self.cols: List[Set[int]]
+        self.boxes: List[Set[int]]
+        self.pos_list: List[Tuple[int, int]]
+        self.board: List[List[str]]
 
     def _solveSudoku(self, board, pos) -> bool:
         if pos == len(self.pos_list):
@@ -38,9 +38,9 @@ class Solution:
         return False
 
     def solveSudoku(self, board: List[List[str]]) -> None:
-        self.rows = [set(range(1, 10)) for _ in range(9)]  # type: List[Set[int]]  # 剩下的数字
-        self.cols = [set() for _ in range(9)]  # type: List[Set[int]]  # 不能填的数字
-        self.boxes = [set() for _ in range(9)]  # type: List[Set[int]]  # 不能填的数字
+        self.rows = [set(range(1, 10)) for _ in range(9)]  # 集合内为剩下的数字
+        self.cols = [set() for _ in range(9)]  # 集合内为不能填的数字
+        self.boxes = [set() for _ in range(9)]  # 集合内为不能填的数字
         # 找缺失的位置
         self.pos_list = []
         self.board = board
