@@ -13,5 +13,5 @@ def lcm(x: int, y: int) -> int:
     """O(1)"""
     return x * y // gcd(x, y)
 
-
-print(lcm(5, 4))  # 20
+if __name__ == '__main__':
+    print(lcm(5, 4))  # 20
