@@ -16,16 +16,27 @@ def unique(nums: List[int]) -> None:
         nums.pop()
 
 
-l = [1, 1, 2, 2, 3]
-unique(l)
-print(l)
-
+if __name__ == '__main__':
+    l = [1, 1, 2, 2, 3]
+    unique(l)
+    print(l)
 
 #
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+try:
+    from .build.build_list import ListNode
+except ImportError:
+    class ListNode:
+        def __init__(self, x):
+            self.val = x
+            self.next = None
+
+
+def get_list_mid(head: ListNode) -> ListNode:
+    p, p2 = head, head
+    while p2.next is not None and p2.next.next is not None:
+        p = p.next
+        p2 = p2.next.next
+    return p
 
 
 def reverse_list(head: ListNode) -> ListNode:

@@ -60,7 +60,7 @@ class Solution:
             while lo < hi:
                 x = nums[i] + nums[lo] + nums[hi]
                 if x == 0:
-                    ans.append([nums[i], nums[lo], nums[hi]])
+                    ans.append([nums[i], nums[lo], nums[hi]])  # 在前在后都行.
                     # 去重
                     while lo < hi and nums[lo] == nums[lo + 1]:
                         lo += 1
