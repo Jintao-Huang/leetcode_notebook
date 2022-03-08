@@ -5,28 +5,49 @@ from typing import List
 
 
 # [lower_bound, upper_bound)
-def bisect_left(arr: List[int], x: int,
+def bisect_left(nums: List[int], x: int,
                 lo: int = 0, hi: int = None) -> int:
-    """lower_bound."""
-    hi = len(arr) - 1 if hi is None else hi
-    while lo <= hi:
+    """lower_bound. [lo, hi)"""
+    if hi is None:
+        hi = len(nums)
+    while lo < hi:
         mid = lo + (hi - lo) // 2
-        if arr[mid] < x:
+        if nums[mid] >= x:
+            hi = mid
+        else:
             lo = mid + 1
-        else:  # 相等与小于时等价的
-            hi = mid - 1
     return lo
 
 
-def bisect_right(arr: List[int], x: int,
+def bisect_right(nums: List[int], x: int,
                  lo: int = 0, hi: int = None) -> int:
     """upper_bound."""
-    hi = len(arr) - 1 if hi is None else hi
-
-    while lo <= hi:
+    if hi is None:
+        hi = len(nums)
+    while lo < hi:
         mid = lo + (hi - lo) // 2
-        if arr[mid] <= x:
-            lo = mid + 1
+        if nums[mid] > x:
+            hi = mid
         else:
-            hi = mid - 1
+            lo = mid + 1
     return lo
+
+
+if __name__ == '__main__':
+    x = [0, 0]
+    print(bisect_right(x, -1, 0, len(x)))
+    print(bisect_right(x, 0))
+    print(bisect_right(x, 1))
+    print(bisect_left(x, -1))
+    print(bisect_left(x, 0))
+    print(bisect_left(x, 1))
+
+    from bisect import bisect_left, bisect_right
+
+    x = [0, 0]
+    print(bisect_right(x, -1, 0, len(x)))
+    print(bisect_right(x, 0))
+    print(bisect_right(x, 1))
+    print(bisect_left(x, -1))
+    print(bisect_left(x, 0))
+    print(bisect_left(x, 1))
