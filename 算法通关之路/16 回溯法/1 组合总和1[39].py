@@ -13,19 +13,19 @@ class Solution:
         self.ans: List[List[int]]
 
     def _dfs(self, candidates: List[int], path: List[int], target: int, i: int) -> None:
+        # 选择: 选/不选
         if target == 0:
             self.ans.append(path.copy())
             return
-        if target < 0:
+        if target < 0 or i >= len(candidates):
             return
-
-        for j in range(i, len(candidates)):
-            x = candidates[j]
-            path.append(x)
-            # 选
-            self._dfs(candidates, path, target - x, j)
-            path.pop()
-            # 不选
+        # 选
+        x = candidates[i]
+        path.append(x)
+        self._dfs(candidates, path, target - x, i)
+        # 不选
+        path.pop()
+        self._dfs(candidates, path, target, i + 1)
 
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         self.ans = []

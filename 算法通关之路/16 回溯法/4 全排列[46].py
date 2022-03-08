@@ -5,28 +5,9 @@
 from typing import List, Set
 
 
-class Solution:
-    def __init__(self):
-        self.ans: List[List[int]]
-
-    def _dfs(self, nums: Set[int], path: List[int]) -> None:
-        if len(nums) == 0:
-            self.ans.append(path.copy())
-            return
-        for x in list(nums):
-            nums.remove(x)
-            path.append(x)
-            self._dfs(nums, path)
-            nums.add(x)
-            path.pop()
-
-    def permute(self, nums: List[int]) -> List[List[int]]:
-        self.ans = []
-        self._dfs(set(nums), [])
-        return self.ans
-
-
 class Solution2:
+    """回溯. 用visited"""
+
     def __init__(self):
         self.ans: List[List[int]]
 
@@ -48,6 +29,30 @@ class Solution2:
     def permute(self, nums: List[int]) -> List[List[int]]:
         self.ans = []
         self._dfs(nums, [], set())
+        return self.ans
+
+
+class Solution:
+    """回溯. 用Set"""
+
+    def __init__(self):
+        self.ans: List[List[int]]
+
+    def _dfs(self, nums: Set[int], path: List[int]) -> None:
+        # 选择: nums
+        if len(nums) == 0:
+            self.ans.append(path.copy())
+            return
+        for x in list(nums):
+            nums.remove(x)
+            path.append(x)
+            self._dfs(nums, path)
+            nums.add(x)
+            path.pop()
+
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.ans = []
+        self._dfs(set(nums), [])
         return self.ans
 
 

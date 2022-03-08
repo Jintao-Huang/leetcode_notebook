@@ -15,11 +15,12 @@ class Solution:
         self.pos_list: List[Tuple[int, int]]
         self.board: List[List[str]]
 
-    def _solveSudoku(self, board, pos) -> bool:
-        if pos == len(self.pos_list):
+    def _dfs(self, board, idx) -> bool:
+        #
+        if idx >= len(self.pos_list):
             return True
 
-        i, j = self.pos_list[pos]
+        i, j = self.pos_list[idx]
         bi = i // 3 * 3 + j // 3
         for x in self.rows[i].copy():
             if x in self.cols[j] or x in self.boxes[bi]:
@@ -29,7 +30,7 @@ class Solution:
             self.boxes[bi].add(x)
             self.board[i][j] = str(x)
 
-            if self._solveSudoku(board, pos + 1):
+            if self._dfs(board, idx + 1):
                 return True
             self.rows[i].add(x)
             self.cols[j].remove(x)
@@ -55,7 +56,7 @@ class Solution:
                     self.cols[j].add(x)
                     self.boxes[bi].add(x)
 
-        self._solveSudoku(self.board, 0)
+        self._dfs(self.board, 0)
 
 
 board = [["5", "3", ".", ".", "7", ".", ".", ".", "."],

@@ -2,7 +2,7 @@
 # Email: hjt_study@qq.com
 # Date: 
 
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Union
 
 
 def unique(nums: List[int]) -> None:
@@ -47,3 +47,19 @@ def reverse_list(head: ListNode) -> ListNode:
         p2 = p
         p = p_n
     return p2  # head
+
+
+#
+def counter(nums: List[int], need_sorted: bool = False) -> Union[Dict, List[List[int]]]:
+    """返回 按字典序."""
+    d = {}
+    for x in nums:
+        if x not in d:
+            d[x] = 0
+        d[x] += 1
+    #
+    if need_sorted:
+        keys = sorted(d.keys())
+        return [[k, d[k]] for k in keys]
+    else:
+        return d
