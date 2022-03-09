@@ -1,5 +1,5 @@
 # Author: Jintao Huang
 # Email: hjt_study@qq.com
-# Date:
+# Date: 
 
-# 见`4 游戏之乐/3 数独游戏[37]`
+# 4 游戏之乐/4 生命游戏[289]

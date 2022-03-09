@@ -70,7 +70,7 @@ from typing import Deque, Tuple
 
 class Solution3:
     """BFS. Ot(N) Os(N)
-    空间复杂度可优化: 去除visited. """
+    空间复杂度可优化: 去除visited. Os(短边)"""
 
     def _bfs(self, i: int, j: int,
              grid: List[List[str]], visited: List[List[bool]]) -> None:

@@ -11,11 +11,9 @@ class UnionFind:
         self.rank = [0] * n  # type: List[int]
 
     def find(self, a: int) -> int:
-        if self.parent[a] == a:
-            return a  # 根节点
-        else:
+        if self.parent[a] != a:
             self.parent[a] = self.find(self.parent[a])
-            return self.parent[a]
+        return self.parent[a]
 
     def union(self, a: int, b: int) -> bool:
         """返回是否union成功. """

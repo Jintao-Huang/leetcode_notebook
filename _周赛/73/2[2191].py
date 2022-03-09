@@ -12,14 +12,14 @@ class Solution:
         for i in range(len(nums)):
             x = nums[i]
             x2 = 0
-            i = 0
             if x == 0:
                 a.append(mapping[x])
             else:
+                ten = 1
                 while x > 0:
-                    x2 += mapping[x % 10] * 10 ** i
+                    x2 += mapping[x % 10] * ten
                     x //= 10
-                    i += 1
+                    ten *= 10
                 a.append(x2)
         a = list(zip(nums, a))
         a.sort(key=lambda item: item[1])

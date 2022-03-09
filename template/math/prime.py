@@ -7,6 +7,7 @@ from typing import List, Dict
 
 
 def is_prime_num(x: int) -> bool:
+    """Ot(sqrt(N)) Os(1)"""
     if x < 2:
         return False
     #
@@ -16,9 +17,8 @@ def is_prime_num(x: int) -> bool:
     return True
 
 
-def get_prime_nums(n: int) -> List[int]:
-    """Ot(N^2). 求[2...n)内的质数"""
-    res = []
+def get_prime_nums(n: int) -> List[bool]:
+    """Ot(NLogN) Os(N). 求[0...n)内的质数"""
     is_prime = [True] * n
     is_prime[0] = is_prime[1] = False
     #
@@ -26,10 +26,9 @@ def get_prime_nums(n: int) -> List[int]:
         if not is_prime[i]:
             continue
         #
-        res.append(i)
         for j in range(i * i, n, i):
             is_prime[j] = False
-    return res
+    return is_prime
 
 
 def to_prime_factor(x: int) -> Dict[int, int]:

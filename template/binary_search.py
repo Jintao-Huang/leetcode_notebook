@@ -9,7 +9,7 @@ from typing import List
 
 
 def binary_search(nums: List[int], target: int) -> int:
-    """Ot(LogN) Os(1). binary_search框架"""
+    """Ot(LogN) Os(1)"""
     lo, hi = 0, len(nums) - 1
     while lo < hi:
         mid = lo + (hi - lo) // 2  # 偶数时: 中点偏左
@@ -23,7 +23,6 @@ def binary_search(nums: List[int], target: int) -> int:
 
 
 def lower_bound(nums: List[int], target: int) -> int:
-    """lower_bound2框架."""
     lo, hi = 0, len(nums)
     while lo < hi:
         mid = lo + (hi - lo) // 2
@@ -35,7 +34,6 @@ def lower_bound(nums: List[int], target: int) -> int:
 
 
 def upper_bound(nums: List[int], target: int) -> int:
-    """upper_bound2框架."""
     lo, hi = 0, len(nums)
     while lo < hi:
         mid = lo + (hi - lo) // 2
@@ -45,13 +43,24 @@ def upper_bound(nums: List[int], target: int) -> int:
             lo = mid + 1
     return lo
 
+def upper_bound2(nums: List[int], target: int) -> int:
+    """右边界"""
+    lo, hi = -1, len(nums) - 1
+    while lo < hi:
+        mid = lo + (hi - lo + 1) // 2
+        if nums[mid] <= target:
+            lo = mid
+        else:
+            hi = mid - 1
+    return lo
 
-nums = [1, 2, 2, 2, 3]
-print(binary_search(nums, 2))  # 2
-print(lower_bound(nums, 2))  # 1
-print(upper_bound(nums, 2))  # 4
-#
-print(lower_bound(nums, 0))  # 0
-print(lower_bound(nums, 4))  # 5
-print(upper_bound(nums, 0))  # 0
-print(upper_bound(nums, 4))  # 5
+x = [0, 0]
+print(lower_bound(x, -1))
+print(lower_bound(x, 0))
+print(lower_bound(x, 1))
+print(upper_bound(x, -1))
+print(upper_bound(x, 0))
+print(upper_bound(x, 1))
+print(upper_bound2(x, -1))  # -1
+print(upper_bound2(x, 0))  # 1
+print(upper_bound2(x, 1))  # 1
