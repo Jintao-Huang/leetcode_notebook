@@ -7,9 +7,9 @@ import json
 
 
 class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 def build_circle_list(list_: Union[str, List[int]], pos: int) -> Optional[ListNode]:

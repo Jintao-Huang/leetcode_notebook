@@ -9,19 +9,22 @@ from template.build.build_tree import build_tree, TreeNode
 class Solution:
     """DFS递归(先序). Ot(N) Os(树高). 其中N为节点数"""
 
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        if root is None:
-            return False
-        #
-        targetSum -= root.val
-        if root.left is None and root.right is None:
-            if targetSum == 0:
+    def _dfs(self, n: TreeNode, targetSum: int) -> bool:
+        if n.left is None and n.right is None:
+            if targetSum == n.val:
                 return True
             else:
                 return False
 
-        return self.hasPathSum(root.left, targetSum) or \
-               self.hasPathSum(root.right, targetSum)
+        for c in [n.left, n.right]:
+            if c is not None and self._dfs(c, targetSum - n.val):
+                return True
+        return False
+
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if root is None:
+            return False
+        return self._dfs(root, targetSum)
 
 
 class Solution2:

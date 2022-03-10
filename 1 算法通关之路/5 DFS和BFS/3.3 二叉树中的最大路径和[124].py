@@ -12,17 +12,17 @@ class Solution:
     def __init__(self):
         self.ans: int
 
-    def _maxPathSum(self, root: Optional[TreeNode]) -> int:
+    def _dfs(self, root: Optional[TreeNode]) -> int:
         if root is None:
             return 0
-        m1 = max(self._maxPathSum(root.left), 0)
-        m2 = max(self._maxPathSum(root.right), 0)
+        m1 = self._dfs(root.left)
+        m2 = self._dfs(root.right)
         self.ans = max(m1 + m2 + root.val, self.ans)
-        return max(m1, m2) + root.val
+        return max(max(m1, m2) + root.val, 0)
 
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        self.ans = int(-1e10)
-        self._maxPathSum(root)
+        self.ans = int(-1e8)
+        self._dfs(root)
         return self.ans
 
 

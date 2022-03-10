@@ -16,7 +16,7 @@ class Solution:
                 need[c] = 0
             need[c] += 1
 
-        ans = 0, int(1e10)  # min_lo, min_hi
+        ans = 0, int(1e8)  # min_lo, min_hi
         lo = 0
         satisfied = 0
         for hi in range(len(s)):
@@ -37,7 +37,7 @@ class Solution:
                         satisfied -= 1
                     window[c2] -= 1
                 lo += 1
-        if ans[1] == int(1e10):
+        if ans[1] == int(1e8):
             return ""
         return s[ans[0]:ans[1] + 1]
 

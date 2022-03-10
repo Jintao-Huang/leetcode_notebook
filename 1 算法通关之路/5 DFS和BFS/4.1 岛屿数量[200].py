@@ -6,30 +6,27 @@ from typing import List
 
 
 class Solution:
-    """DFS递归. Ot(N) Os(N). 其中N为格子数
-    空间复杂度可优化: 去除visited. """
+    """DFS递归. Ot(N) Os(N). 其中N为格子数"""
 
-    def _dfs(self, i: int, j: int,
-             grid: List[List[str]], visited: List[List[bool]]) -> None:
+    def _dfs(self, i: int, j: int, grid: List[List[str]]) -> None:
         directions = ((-1, 0), (1, 0), (0, -1), (0, 1))
         n1, n2 = len(grid), len(grid[0])
         for d in directions:
             pi, pj = i + d[0], j + d[1]
             if 0 <= pi < n1 and 0 <= pj < n2:
-                if not visited[pi][pj] and grid[pi][pj] == "1":
-                    visited[pi][pj] = True
-                    self._dfs(pi, pj, grid, visited)
+                if grid[pi][pj] == "1":
+                    grid[pi][pj] = "0"
+                    self._dfs(pi, pj, grid)
 
     def numIslands(self, grid: List[List[str]]) -> int:
         ans = 0
         n1, n2 = len(grid), len(grid[0])
-        visited = [[False for _ in range(n2)] for _ in range(n1)]  # type: List[List[bool]]
         for i in range(n1):
             for j in range(n2):
-                if not visited[i][j] and grid[i][j] == "1":
+                if not grid[i][j] == "1":
                     ans += 1
-                    visited[i][j] = True
-                    self._dfs(i, j, grid, visited)
+                    grid[i][j] = "0"
+                    self._dfs(i, j, grid)
         return ans
 
 
