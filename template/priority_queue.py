@@ -5,19 +5,15 @@ import heapq
 
 
 class PriorityQueue:
-    def __init__(self, initial_list=None):
-        queue = initial_list or []
-        heapq.heapify(queue)
-        #
-        self._queue = queue
+    def __init__(self, nums=None):
+        self._queue = nums or []
+        heapq.heapify(self._queue)
 
     def add(self, x):
-        queue = self._queue
-        heapq.heappush(queue, x)
+        heapq.heappush(self._queue, x)
 
     def pop(self):
-        queue = self._queue
-        return heapq.heappop(queue)
+        return heapq.heappop(self._queue)
 
     def __len__(self):
         return len(self._queue)

@@ -70,7 +70,8 @@ class Solution4:
     """前缀和. Ot(N) Os(1)."""
 
     def maxSubArray(self, nums: List[int]) -> int:
-        s = s_min = 0
+        s_min = 0
+        s = 0
         ans = nums[0]
         #
         for i in range(len(nums)):

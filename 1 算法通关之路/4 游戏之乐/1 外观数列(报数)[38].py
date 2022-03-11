@@ -2,63 +2,33 @@
 # Email: hjt_study@qq.com
 # Date:
 
-from typing import List
-
 
 class Solution:
-    """迭代. Ot(NM) Os(M). M为最后一次的字符串长度. (此时间复杂度为 不进行memo时间优化时的复杂度)"""
+    """滑动窗口. Ot(NM) Os(M+N). M为最后一次的字符串长度. 初始化时的复杂度"""
 
-    def __init__(self):
-        self.memo = ["1"]  # type: List[str]
+    @staticmethod
+    def next_s(s: str):
+        # shrink: s[lo] != s[hi]
+        # : True.
+        lo = 0
+        ans = []
+        for hi in range(len(s)):
+            c = s[hi]
+            c2 = s[lo]
+            if c != c2:
+                ans.append(str(hi - lo))
+                ans.append(c2)
+                lo = hi
 
-    def countAndSay(self, n: int) -> str:
-        for i in range(len(self.memo), n):
-            s = self.memo[-1]
-            #
-            tmp = []
-            c_prev = s[0]
-            nums = 0
-            for c in s:
-                if c == c_prev:
-                    nums += 1
-                else:
-                    tmp += [str(nums), c_prev]
-                    c_prev = c
-                    nums = 1
-            tmp += [str(nums), c_prev]
-            self.memo.append("".join(tmp))
-        return self.memo[n - 1]
-
-
-class Solution2:
-    """递归. Ot(NM) Os(M+N). M为最后一次的字符串长度. (此时间复杂度为 不进行memo时间优化时的复杂度)"""
-
-    def __init__(self):
-        self.memo = ["1"]  # type: List[str]
+        ans.append(str(hi - lo + 1))
+        ans.append(s[lo])
+        return "".join(ans)
 
     def countAndSay(self, n: int) -> str:
-        if len(self.memo) >= n:
-            return self.memo[n - 1]
-        tmp = []
-        #
-        s = self.countAndSay(n - 1)
-        c_prev = s[0]
-        nums = 0
-        for c in s:
-            if c == c_prev:
-                nums += 1
-            else:
-                tmp += [str(nums), c_prev]
-                c_prev = c
-                nums = 1
-        tmp += [str(nums), c_prev]
-        #
-        self.memo.append("".join(tmp))
-        return self.memo[n - 1]
+        self.ans = ["1"]
+        for i in range(1, n):
+            self.ans.append(self.next_s(self.ans[-1]))
+        return self.ans[n - 1]
+
 
 s = Solution()
-s2 = Solution2()
-print(s.countAndSay(4))
-print(s.countAndSay(4))
-print(s2.countAndSay(4))
-print(s2.countAndSay(4))
