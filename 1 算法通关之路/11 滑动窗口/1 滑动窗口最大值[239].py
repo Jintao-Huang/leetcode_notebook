@@ -5,32 +5,24 @@
 from typing import List, Deque
 from collections import deque
 
+
 # 最近K个, j < i, argmax[j](nums[j]).
 class Solution:
-    """单调Deque, 准滑动窗口. Ot(N) Os(K)
-    shrink条件: len==k
-    shrink=True: ans"""
+    """单调Deque. Ot(N) Os(K)"""
 
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         ans = []
-        # 最近(迭代: 从远及近). [0]最大: 递减; 最小: 递增
-        q = deque()  # type: Deque[int]  # 递减队列. 存索引
+        q = deque()  # 递减队列. 存索引. 可存数
         #
         for hi in range(len(nums)):
-            # 模板: 先hi, 后lo.
             while len(q) > 0 and nums[q[-1]] <= nums[hi]:
                 q.pop()
-            q.append(hi)
-            # shrink省略
-            lo = hi - k + 1
-            if lo >= 0:
-                # shrink
+            q.append(hi)  # 含hi.
+            if len(q) > 0 and hi + 1 - q[0] > k:
+                q.popleft()
+            if hi + 1 - k >= 0:  # k >= 1
                 ans.append(nums[q[0]])
-                if q[0] == lo:
-                    q.popleft()
-                #
         return ans
-
 
 
 nums = [1, 3, -1, -3, 5, 3, 6, 7]
