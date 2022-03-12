@@ -142,6 +142,8 @@ def _merge(nums_list: List[List[int]]) -> List[int]:
         nums = nums_list[i]
         if len(nums) > 0:
             heap.append((nums[0], i, 0))
+    if len(heap) == 0:
+        return ans
     heapify(heap)
     while len(heap) > 1:
         val, i, j = heap[0]

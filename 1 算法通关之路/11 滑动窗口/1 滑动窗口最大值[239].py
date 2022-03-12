@@ -5,7 +5,7 @@
 from typing import List, Deque
 from collections import deque
 
-
+# 最近K个, j < i, argmax[j](nums[j]).
 class Solution:
     """单调Deque, 准滑动窗口. Ot(N) Os(K)
     shrink条件: len==k

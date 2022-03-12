@@ -76,9 +76,23 @@ class Solution4:
         #
         for i in range(len(nums)):
             s += nums[i]
-            # 注意顺序!
             ans = max(ans, s - s_min)
             s_min = min(s_min, s)
+
+        return ans
+
+    def maxSubArray2(self, nums: List[int]) -> int:
+        s = [0]
+        for i in range(len(nums)):
+            s.append(s[-1] + nums[i])
+        #
+        ans = -1e8
+        lo = 0
+        for hi in range(1, len(s)):
+            # shrink: nums[hi - 1] <= nums[lo]
+            if s[hi - 1] <= s[lo]:
+                lo = hi - 1
+            ans = max(ans, s[hi] - s[lo])
 
         return ans
 
@@ -88,3 +102,4 @@ print(Solution().maxSubArray(nums))
 print(Solution2().maxSubArray(nums))
 print(Solution3().maxSubArray(nums))
 print(Solution4().maxSubArray(nums))
+print(Solution4().maxSubArray2(nums))
