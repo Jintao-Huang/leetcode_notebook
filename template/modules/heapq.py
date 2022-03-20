@@ -112,6 +112,7 @@ def heapreplace(heap: List[int], x: int) -> int:
 def heappushpop(heap: List[int], x: int) -> int:
     """可能会返回x"""
     if len(heap) > 0 and x > heap[0]:
+        # heapreplace
         x, heap[0] = heap[0], x
         _siftdown(heap, 0, len(heap) - 1)
     return x
@@ -163,6 +164,7 @@ def _nlargest(nums: List[int], k: int) -> List[int]:
     heapify(ans)
     for i in range(k, len(nums)):
         x = nums[i]
+        # heappushpop
         if x > ans[0]:  # 替换最小的
             heapreplace(ans, x)
     return ans

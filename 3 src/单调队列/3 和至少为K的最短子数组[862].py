@@ -4,28 +4,25 @@
 
 from typing import List, Tuple
 
+from collections import deque
+
 
 class Solution:
-    """前缀和"""
+    """前缀和+单调队列"""
 
     def shortestSubarray(self, nums: List[int], k: int) -> int:
         s = [0]
         for i in range(len(nums)):
             s.append(s[-1] + nums[i])
-        print(s)
-        stack = []
         ans = int(1e8)
-        lo = 0
-        for hi in range(1, len(s)):
-            # shrink: nums[hi] - nums[lo] >= k
-
-            while s[hi] - s[lo] >= k:
-                ans = min(ans, hi - lo)
-                while len(stack) > 0 and s[lo] >= stack[-1]:
-                    stack.pop()
-                stack.append(s[lo])
-                lo += 1
-        ans = min(ans, hi - lo)
+        q = deque()
+        for hi in range(len(s)):
+            x = s[hi]
+            while len(q) > 0 and x <= s[q[-1]]:
+                q.pop()
+            while len(q) > 0 and x - s[q[0]] >= k:
+                ans = min(ans, hi - q.popleft())
+            q.append(hi)
         return ans if ans != int(1e8) else -1
 
 
@@ -38,6 +35,6 @@ class Solution:
 # nums = [1]
 # k = 1
 # print(Solution().shortestSubarray(nums, k))
-nums = [84,-37,32,40,95]
+nums = [84, -37, 32, 40, 95]
 k = 167
 print(Solution().shortestSubarray(nums, k))

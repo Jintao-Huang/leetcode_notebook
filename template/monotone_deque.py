@@ -5,8 +5,6 @@
 from typing import List
 
 
-# 单调栈
-
 # ge -> le: > <. 递减栈 -> 递增栈
 # ge -> gt: > >=
 # next -> prev: reverse -> no reverse, lo -> hi
@@ -175,6 +173,7 @@ def next_min_k(nums: List[int], k: int) -> List[int]:
         #
     return ans
 
+# 比某数小K的数的最短区间.
 
 if __name__ == '__main__':
     nums = [3, 4, 2, 2, 5, 4]
