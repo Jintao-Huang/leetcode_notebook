@@ -9,7 +9,7 @@ class ListNode2:
         self.next = next  # type: ListNode2
 
 
-from typing import List
+from typing import List, Union
 
 
 class LinkedList:
@@ -18,6 +18,7 @@ class LinkedList:
     def __init__(self, nums: List[int]):
         head = ListNode2(0, None, None)
         head.next, head.prev = head, head
+        self.length = 0
         #
         self.head = head
 
@@ -45,22 +46,27 @@ class LinkedList:
         self.delete(p)
         return x
 
-    def insert_after(self, p: ListNode2, x) -> None:
+    def insert_after(self, p: ListNode2, x: int) -> ListNode2:
         """insert x after p"""
         n = ListNode2(x, p, p.next)
         p.next.prev = n
         p.next = n
+        self.length += 1
+        return n
 
-    def insert_before(self, p: ListNode2, x) -> None:
+    def insert_before(self, p: ListNode2, x: int) -> ListNode2:
         """insert x before p"""
         n = ListNode2(x, p.prev, p)
         p.prev.next = n
         p.prev = n
+        self.length += 1
+        return n
 
     def delete(self, p: ListNode2) -> None:
         """delete p"""
         p.next.prev = p.prev
         p.prev.next = p.next
+        self.length -= 1
 
     def __str__(self) -> str:
         head = self.head
@@ -72,6 +78,9 @@ class LinkedList:
             p = p.next
         return str(ans)
 
+    def __len__(self) -> int:
+        return self.length
+
 
 class ListNode:
     def __init__(self, val: int, next):
@@ -82,16 +91,19 @@ class ListNode:
 class ForwardList:
     def __init__(self, nums: List[int]):
         self.head = None
+        self.length = 0
 
         for x in reversed(nums):
             self.appendleft(x)
 
     def appendleft(self, x: int) -> None:
         self.head = ListNode(x, self.head)
+        self.length += 1
 
     def popleft(self) -> int:
         x = self.head.val
         self.head = self.head.next
+        self.length -= 1
         return x
 
     def __str__(self) -> str:
@@ -103,6 +115,9 @@ class ForwardList:
             ans.append(p.val)
             p = p.next
         return str(ans)
+
+    def __len__(self) -> int:
+        return self.length
 
 
 if __name__ == '__main__':

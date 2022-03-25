@@ -6,6 +6,7 @@ from typing import List
 
 
 class Solution:
+    # 脑筋急转弯
     def maximumTop(self, nums: List[int], k: int) -> int:
         if len(nums) == 1 and k % 2 == 1:
             return -1
@@ -23,7 +24,7 @@ nums = [91, 98, 17, 79, 15, 55, 47, 86, 4, 5, 17, 79, 68, 60, 60, 31, 72, 85, 25
 k = 2
 print(Solution().maximumTop(nums, k))
 
-nums = [68,76,53,73,85,87,58,24,48,59,38,80,38,65,90,38,45,22,3,28,11]
+nums = [68, 76, 53, 73, 85, 87, 58, 24, 48, 59, 38, 80, 38, 65, 90, 38, 45, 22, 3, 28, 11]
 k = 1
 print(Solution().maximumTop(nums, k))
 

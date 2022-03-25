@@ -7,6 +7,8 @@ from math import sqrt
 
 
 class Solution:
+    """自定义排序"""
+
     def get_dist(self, i, j) -> float:
         return sqrt(i ** 2 + j ** 2)
 
