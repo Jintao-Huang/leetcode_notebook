@@ -2,7 +2,7 @@
 # Email: hjt_study@qq.com
 # Date: 
 
-from typing import Optional, Union, List
+from typing import Optional, List
 import json
 
 
@@ -22,7 +22,7 @@ def list_to_str(head: Optional[ListNode]) -> str:
     return json.dumps(ans)
 
 
-def build_list(list_: Union[str, List[int]]) -> Optional[ListNode]:
+def build_list(list_:str) -> Optional[ListNode]:
     if isinstance(list_, str):
         list_ = json.loads(list_)  # type: List[int]
     if not len(list_):

@@ -3,7 +3,7 @@
 # Date: 
 
 import json
-from typing import List, Union, Optional, Deque, Tuple, Sequence
+from typing import List, Optional
 from collections import deque
 
 
@@ -40,7 +40,7 @@ def tree_to_str(root: Optional[TreeNode]) -> str:
     return json.dumps(ans)
 
 
-def build_tree(tree: Union[str, List[int]]) -> Optional[TreeNode]:
+def build_tree(tree: str) -> Optional[TreeNode]:
     l = json.loads(tree)
     if len(l) == 0:
         return None

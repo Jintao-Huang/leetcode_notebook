@@ -5,12 +5,14 @@
 from typing import List
 
 
+# 改索引: 2步
+
 # ge -> le: > <. 递减栈 -> 递增栈
 # ge -> gt: > >=
 # next -> prev: reverse -> no reverse, lo -> hi
 
 def next_ge(nums: List[int]) -> List[int]:
-    ans = [-1] * len(nums)
+    ans = [None] * len(nums)
     st = []
     for lo in reversed(range(len(nums))):
         while len(st) > 0 and nums[lo] > nums[st[-1]]:  # gt: >=
@@ -22,7 +24,7 @@ def next_ge(nums: List[int]) -> List[int]:
 
 
 def next_le(nums: List[int]) -> List[int]:
-    ans = [-1] * len(nums)
+    ans = [None] * len(nums)
     st = []
     for lo in reversed(range(len(nums))):
         while len(st) > 0 and nums[lo] < nums[st[-1]]:  # lt: <=
@@ -34,7 +36,7 @@ def next_le(nums: List[int]) -> List[int]:
 
 
 def prev_ge(nums: List[int]) -> List[int]:
-    ans = [-1] * len(nums)
+    ans = [None] * len(nums)
     st = []
     for hi in range(len(nums)):
         while len(st) > 0 and nums[hi] > nums[st[-1]]:  # gt: >=
@@ -66,7 +68,7 @@ if __name__ == '__main__':
 # 下一个最小的>=nums[i]的nums[j]
 def next_ge_min(nums: List[int]) -> List[int]:
     arg = sorted(range(len(nums)), key=lambda i: nums[i])
-    ans = [-1] * len(arg)
+    ans = [None] * len(arg)
     st = []
     for lo in reversed(range(len(arg))):
         x = arg[lo]
@@ -80,7 +82,7 @@ def next_ge_min(nums: List[int]) -> List[int]:
 
 def next_le_max(nums: List[int]) -> List[int]:
     arg = sorted(range(len(nums)), key=lambda i: -nums[i])
-    ans = [-1] * len(arg)
+    ans = [None] * len(arg)
     st = []
     for lo in reversed(range(len(arg))):
         x = arg[lo]
@@ -94,7 +96,7 @@ def next_le_max(nums: List[int]) -> List[int]:
 
 def prev_ge_min(nums: List[int]) -> List[int]:
     arg = sorted(range(len(nums)), key=lambda i: -nums[i])
-    ans = [-1] * len(arg)
+    ans = [None] * len(arg)
     st = []
     for lo in range(len(arg)):
         x = arg[lo]
@@ -127,7 +129,7 @@ from collections import deque
 
 # 含自己: q.append()在ans前
 def next_max_k(nums: List[int], k: int) -> List[int]:
-    ans = [-1] * len(nums)
+    ans = [None] * len(nums)
     q = deque()  # 递减队列. 存索引. 可存数
     #
     for lo in reversed(range(len(nums))):
@@ -143,7 +145,7 @@ def next_max_k(nums: List[int], k: int) -> List[int]:
 
 
 def prev_max_k(nums: List[int], k: int) -> List[int]:
-    ans = [-1] * len(nums)
+    ans = [None] * len(nums)
     q = deque()  # 递减队列. 存索引. 可存数
     #
     for hi in range(len(nums)):
@@ -159,7 +161,7 @@ def prev_max_k(nums: List[int], k: int) -> List[int]:
 
 
 def next_min_k(nums: List[int], k: int) -> List[int]:
-    ans = [-1] * len(nums)
+    ans = [None] * len(nums)
     q = deque()  # 递减队列. 存索引. 可存数
     #
     for lo in reversed(range(len(nums))):
@@ -173,13 +175,32 @@ def next_min_k(nums: List[int], k: int) -> List[int]:
         #
     return ans
 
-# 比某数小K的数的最短区间.
+
+def next_max_k2(nums: List[int], k: int) -> List[int]:
+    # 不含自己. 也是看k个(后面多看一个)
+    ans = [None] * len(nums)
+    q = deque()  # 递减队列. 存索引. 可存数
+    #
+    for lo in reversed(range(len(nums))):
+        if len(q) > 0 and q[0] - lo > k:  # !
+            q.popleft()
+        if len(q) > 0:  #
+            ans[lo] = nums[q[0]]
+        # !
+        while len(q) > 0 and nums[lo] >= nums[q[-1]]:
+            q.pop()
+        q.append(lo)  # 含hi.
+        #
+    return ans
+
 
 if __name__ == '__main__':
     nums = [3, 4, 2, 2, 5, 4]
     print(prev_max_k(nums, 2))
     print(next_max_k(nums, 2))
     print(next_min_k(nums, 2))
+    print(next_max_k2(nums, 2))
+
     """
     [3, 4, 4, 2, 5, 5]
     [4, 4, 2, 5, 5, 4]

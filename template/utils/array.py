@@ -2,6 +2,7 @@
 # Email: hjt_study@qq.com
 # Date: 
 
+
 from typing import List, Dict, Tuple, Union
 
 
@@ -21,35 +22,7 @@ if __name__ == '__main__':
     unique(l)
     print(l)
 
-#
-try:
-    from .build.build_list import ListNode
-except ImportError:
-    class ListNode:
-        def __init__(self, x):
-            self.val = x
-            self.next = None
 
-
-def get_list_mid(head: ListNode) -> ListNode:
-    p, p2 = head, head
-    while p2.next is not None and p2.next.next is not None:
-        p = p.next
-        p2 = p2.next.next
-    return p
-
-
-def reverse_list(head: ListNode) -> ListNode:
-    p, p2 = head, None
-    while p is not None:
-        p_n = p.next
-        p.next = p2
-        p2 = p
-        p = p_n
-    return p2  # head
-
-
-#
 def counter(nums: List[int], need_sorted: bool = False) -> Union[Dict, List[List[int]]]:
     """返回 按字典序."""
     d = {}
@@ -63,3 +36,18 @@ def counter(nums: List[int], need_sorted: bool = False) -> Union[Dict, List[List
         return [[k, d[k]] for k in keys]
     else:
         return d
+
+
+def find(arr: List[int], target: int):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1
+
+
+def reverse(arr: List[int], lo: int, hi: int) -> None:
+    """[lo, hi]"""
+    while lo < hi:
+        arr[lo], arr[hi] = arr[hi], arr[lo]
+        lo += 1
+        hi -= 1
