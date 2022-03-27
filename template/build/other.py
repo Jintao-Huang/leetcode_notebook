@@ -4,12 +4,7 @@
 
 from typing import Optional, Union, List
 import json
-
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+from .build_list import ListNode
 
 
 def build_circle_list(list_: Union[str, List[int]], pos: int) -> Optional[ListNode]:

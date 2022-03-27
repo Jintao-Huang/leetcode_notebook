@@ -51,3 +51,16 @@ def reverse(arr: List[int], lo: int, hi: int) -> None:
         arr[lo], arr[hi] = arr[hi], arr[lo]
         lo += 1
         hi -= 1
+
+
+def bubble(arr, start, end) -> int:
+    ans = 0
+    if start < end:
+        for i in range(start, end):
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+            ans += 1
+    else:
+        for i in range(start, end, -1):
+            arr[i], arr[i - 1] = arr[i - 1], arr[i]
+            ans += 1
+    return ans

@@ -7,9 +7,9 @@ import json
 
 
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val: int = 0, next: 'ListNode' = None):
         self.val = val
-        self.next = next  # type: Optional[ListNode]
+        self.next = next
 
 
 def list_to_str(head: Optional[ListNode]) -> str:
@@ -22,7 +22,7 @@ def list_to_str(head: Optional[ListNode]) -> str:
     return json.dumps(ans)
 
 
-def build_list(list_:str) -> Optional[ListNode]:
+def build_list(list_: str) -> Optional[ListNode]:
     if isinstance(list_, str):
         list_ = json.loads(list_)  # type: List[int]
     if not len(list_):

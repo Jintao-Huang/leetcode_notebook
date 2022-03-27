@@ -2,6 +2,18 @@
 # Email: hjt_study@qq.com
 # Date: 
 
+def bubble(arr, start, end) -> int:
+    ans = 0
+    if start < end:
+        for i in range(start, end):
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+            ans += 1
+    else:
+        for i in range(start, end, -1):
+            arr[i], arr[i - 1] = arr[i - 1], arr[i]
+            ans += 1
+    return ans
+
 
 class Solution:
     """贪心"""
@@ -17,17 +29,13 @@ class Solution:
             else:
                 for i in range(len(s)):
                     if s[lo + i] == s[hi]:
-                        for j in range(i, 0, -1):
-                            ans += 1
-                            s[lo + j], s[lo + j - 1] = s[lo + j - 1], s[lo + j]
+                        ans += bubble(s, lo + i, lo)
                         break
                     if s[lo] == s[hi - i]:
-                        for j in range(i, 0, -1):
-                            ans += 1
-                            s[hi - j], s[hi - j + 1] = s[hi - j + 1], s[hi - j]
+                        ans += bubble(s, hi - i, hi)
                         break
         return ans
 
 
-s = "letelta"
+s = "letelt"
 print(Solution().minMovesToMakePalindrome(s))
