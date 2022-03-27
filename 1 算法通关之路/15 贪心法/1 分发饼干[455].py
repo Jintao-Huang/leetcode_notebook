@@ -7,6 +7,8 @@ from typing import List
 
 class Solution:
     """贪心. Ot(NLogN MLogM)"""
+
+    # 大的糖果满足不了, 小的糖果一定满足不了
     def findContentChildren(self, g: List[int], s: List[int]) -> int:
         g.sort()
         s.sort()

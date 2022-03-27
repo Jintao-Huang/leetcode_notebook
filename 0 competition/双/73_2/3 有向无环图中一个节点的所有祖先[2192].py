@@ -4,56 +4,42 @@
 
 from typing import List, Set
 
-class Node:
-    def __init__(self, val):
-        self.val = val
-        self.parent = []
-        self.anc = None
-
-
-def unique(nums: List[int]) -> None:
-    """条件: nums有序"""
-    j = 1  # 写入指针
-    for i in range(1, len(nums)):
-        if nums[i] != nums[j - 1]:
-            nums[j] = nums[i]
-            j += 1
-    for i in range(j, len(nums)):
-        nums.pop()
+from collections import deque
 
 
 class Solution:
-    """图+dfs"""
-    def _dfs(self, n: Node, a: Set) -> None:
-        if n is None:
-            return
-        if n.anc is not None:
-            a.update(n.anc)
-            return
-        anc = set()
-        for p in n.parent:
-            anc.add(p.val)
-            self._dfs(p, anc)
-        n.anc = anc
-        a.update(n.anc)
-        return
+    """图+bfs"""
 
     def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
-        n_list = [Node(i) for i in range(n)]
+        ans = [set() for _ in range(n)]
+        es = [[] for _ in range(n)]  # 出边
+        de = [0] * n  # 入度
         for from_, to in edges:
-            n_list[to].parent.append(n_list[from_])
+            es[from_].append(to)
+            de[to] += 1
+        #
+        q = deque()
+        for i, d in enumerate(de):
+            if d == 0:
+                q.append(i)
 
-        ans = []
-        for n in n_list:
-            a = set()
-            self._dfs(n, a)
-            a = sorted(a)
-            ans.append(a)
-        return ans
+        while len(q) > 0:
+            v = q.popleft()
+            for v2 in es[v]:
+                de[v2] -= 1
+                ans[v2].update(ans[v])
+                ans[v2].add(v)
+                if de[v2] == 0:
+                    q.append(v2)
+        return [sorted(a) for a in ans]
 
 
-n =  8
-edgeList = [[4,0],[0,5],[3,0],[6,3],[4,5],[2,6],[6,5],[4,3],[2,0]]
+n = 8
+edgeList = [[0, 3], [0, 4], [1, 3], [2, 4], [2, 7], [3, 5], [3, 6], [3, 7], [4, 6]]
+print(Solution().getAncestors(n, edgeList))
+
+n = 8
+edgeList = [[4, 0], [0, 5], [3, 0], [6, 3], [4, 5], [2, 6], [6, 5], [4, 3], [2, 0]]
 
 print(Solution().getAncestors(n, edgeList))
 

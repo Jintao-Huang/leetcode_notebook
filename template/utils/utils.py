@@ -7,12 +7,12 @@ from typing import List, Dict, Tuple, Union
 
 def unique(nums: List[int]) -> None:
     """条件: nums有序"""
-    j = 1  # 写入指针
-    for i in range(1, len(nums)):
-        if nums[i] != nums[j - 1]:
-            nums[j] = nums[i]
-            j += 1
-    for i in range(j, len(nums)):
+    lo = 1  # 写入指针
+    for hi in range(1, len(nums)):
+        if nums[hi] != nums[hi - 1]:
+            nums[lo] = nums[hi]
+            lo += 1
+    for i in range(lo, len(nums)):
         nums.pop()
 
 

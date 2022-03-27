@@ -1,15 +1,19 @@
 # Author: Jintao Huang
 # Email: hjt_study@qq.com
-# Date:
+# Date: 
 
+# 哈希映射
+m = {
+    '+': 0, '-': 1, '*': 2, '/': 3, '(': 4, ')': 5, '\0': 6
+}
+
+# 优先级
 # 0: (), \0\0
 # 1: 算前
 # 2: 不算
 # -1: 不可能
 # pri['+']['-']: sop[-1]: '+', s[i]: '-'
-m = {
-    '+': 0, '-': 1, '*': 2, '/': 3, '(': 4, ')': 5, '\0': 6
-}
+
 pri = [
     [1, 1, 2, 2, 2, 1, 1],
     [1, 1, 2, 2, 2, 1, 1],
@@ -67,9 +71,10 @@ class Solution:
         return sn[-1] if len(sn) > 0 else 0
 
 
-# s = "1234"
-# print(Solution().calculate(s))
-s = "(1+(4+5+2)-3 )+(6+8)"
-# s = "(4+5+2)"
-s = " 3+2*2 "
-print(Solution().calculate(s))
+if __name__ == '__main__':
+    # s = "1234"
+    # print(Solution().calculate(s))
+    s = "(1+(4+5+2)-3 )+(6+8)"
+    # s = "(4+5+2)"
+    s = " 3+2*2 "
+    print(Solution().calculate(s))

@@ -6,6 +6,7 @@ from typing import List
 
 
 class Solution:
+    """贪心 + 排序"""
     def largestPerimeter(self, nums: List[int]) -> int:
         nums.sort()
         ans = 0

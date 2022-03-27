@@ -7,6 +7,7 @@ from typing import List
 
 class Solution:
     """贪心/动态规划-空间优化. Ot(N) Os(1)"""
+    # 选下一步最远的
 
     def canJump(self, nums: List[int]) -> bool:
         # 选择: 选/不选

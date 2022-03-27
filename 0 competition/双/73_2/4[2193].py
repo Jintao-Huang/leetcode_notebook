@@ -3,9 +3,9 @@
 # Date: 
 
 
-
 class Solution:
     """贪心"""
+
     def minMovesToMakePalindrome(self, s: str) -> int:
         lo, hi = 0, len(s) - 1
         s = list(s)
@@ -27,6 +27,7 @@ class Solution:
                             s[hi - j], s[hi - j + 1] = s[hi - j + 1], s[hi - j]
                         break
         return ans
+
 
 s = "letelta"
 print(Solution().minMovesToMakePalindrome(s))

@@ -1,8 +1,12 @@
 # Author: Jintao Huang
 # Email: hjt_study@qq.com
-# Date: 
+# Date:
+
+# 372
+"""a^[a,b,c]=a^c*(a^10)^[a,b]"""
 
 
+#
 def fast_pow(x: int, y: int, mod: int = None) -> int:
     """Ot(Log(Y))"""
     res = 1

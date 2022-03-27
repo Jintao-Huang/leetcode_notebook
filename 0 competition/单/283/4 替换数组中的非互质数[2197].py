@@ -42,7 +42,7 @@ class Solution2:
     def replaceNonCoprimes(self, nums: List[int]) -> List[int]:
         ans = []  # stack
         for x in nums:
-            while ans:
+            while len(ans) > 0:
                 g = gcd(ans[-1], x)
                 if g > 1:
                     x = ans[-1] * x // g

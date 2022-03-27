@@ -7,6 +7,7 @@ from typing import List
 
 class Solution:
     """贪心. 相反面: 最大不重叠区间. Ot(NLogN)"""
+    # `[`没超前面最大的`]`, 则前面的都不会超.
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
 
         intervals.sort(key=lambda x: x[1])

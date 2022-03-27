@@ -26,7 +26,6 @@ class Solution:
         print(next_)
         exit(0)
 
-
         dp = [[False] * len(arr) for _ in range(2)]
         dp[0][-1] = True
         dp[1][-1] = True
@@ -55,9 +54,8 @@ class Solution:
         return ans, dp
 
 
-
-arr = [10,13,12,14,15]
+arr = [10, 13, 12, 14, 15]
 print(Solution().oddEvenJumps(arr))
 
-arr = [1,2,3,2,1,4,4,5]
+arr = [1, 2, 3, 2, 1, 4, 4, 5]
 print(Solution().oddEvenJumps(arr))

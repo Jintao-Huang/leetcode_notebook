@@ -4,7 +4,10 @@
 from typing import List, Dict
 
 
+# 拓扑排序 A->B: B依赖A
 class Solution:
+    """dfs"""
+
     def __init__(self):
         self.ans: List[int]
 
@@ -45,4 +48,37 @@ class Solution:
         return self.ans[::-1]
 
 
-print(Solution().findOrder(4, [[1,0],[2,0],[3,1],[3,2]]))
+print(Solution().findOrder(4, [[1, 0], [2, 0], [3, 1], [3, 2]]))
+
+from collections import deque
+
+
+class Solution2:
+    """bfs"""
+
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        es = [[] for _ in range(numCourses)]  # type: List[List[int]]  # 出边
+        de = [0] * numCourses  # 入度
+        for to, from_ in prerequisites:
+            es[from_].append(to)
+            de[to] += 1
+
+        q = deque([])
+        for i, d in enumerate(de):
+            if d == 0:
+                q.append(i)
+        ans = []
+        while len(q) > 0:
+            v = q.popleft()  # type: int
+            ans.append(v)
+            for e in es[v]:
+                de[e] -= 1
+                if de[e] == 0:
+                    q.append(e)
+        if len(ans) != numCourses:
+            return []
+        return ans
+
+
+print(Solution2().findOrder(4, [[1, 0], [2, 0], [3, 1], [3, 2]]))
+print(Solution2().findOrder(3, [[1, 0], [1, 2], [0, 1]]))

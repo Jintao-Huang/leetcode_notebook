@@ -15,62 +15,46 @@ class TreeNode:
 
 
 def tree_to_str(root: Optional[TreeNode]) -> str:
-    ans = []
     if root is None:
-        return json.dumps(ans)
+        return "[]"
 
-    #
-    def _all_None(x: Sequence[Optional[TreeNode]], start: int, end: int) -> bool:
-        ans = True
-        x = list(x)
-        for i in range(start, end):
-            node = x[i]
-            if node is not None:
-                ans = False
-        return ans
-
-    #
-    q = deque([root])  # type: Deque[Optional[TreeNode]]
-    #
-    while len(q):
-        sz = len(q)
-        #
-        if _all_None(q, 0, sz):
-            break
-        #
-        for i in range(sz):
-            node = q.popleft()  # type: TreeNode
-            if node is None:
+    ans = []
+    q = deque([root])
+    while len(q) > 0:
+        all_None = True
+        for i in range(len(q)):
+            n = q.popleft()
+            if n is None:
                 ans.append(None)
-                q.append(None)
-                q.append(None)
-            else:
-                ans.append(node.val)
-                q.append(node.left)
-                q.append(node.right)
-            #
+                continue
+            ans.append(n.val)
+            q.append(n.left)
+            q.append(n.right)
+            if n.left or n.right:
+                all_None = False
+        if all_None:
+            break
+    while ans[-1] is None:
+        ans.pop()
+
     return json.dumps(ans)
 
 
 def build_tree(tree: Union[str, List[int]]) -> Optional[TreeNode]:
-    if isinstance(tree, str):
-        tree = json.loads(tree)  # type: List[int]
-    #
-    if not len(tree):
-        return
-    #
-    root = TreeNode(tree[0])
-    q = deque([(root, "left"), (root, "right")])  # type: Deque[Tuple[TreeNode, str]]
-    for node in tree[1:]:
-        if node is None:
-            q.popleft()
-            continue
-        #
-        node = TreeNode(node)
-        setattr(*q.popleft(), node)
-        #
-        q.append((node, "left"))
-        q.append((node, "right"))
+    l = json.loads(tree)
+    if len(l) == 0:
+        return None
+
+    root = TreeNode(l[0], None, None)
+    q = deque([(root, "left"), (root, "right")])
+    for i in range(1, len(l)):
+        x = l[i]
+        n = None if x is None else TreeNode(x, None, None)
+        p, s = q.popleft()
+        setattr(p, s, n)
+        if n is not None:
+            q.append((n, "left"))
+            q.append((n, "right"))
     return root
 
 
