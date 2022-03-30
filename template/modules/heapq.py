@@ -4,6 +4,7 @@
 
 from typing import List, Tuple
 
+
 # 默认小根堆
 def _siftup(heap: List[int], i: int) -> None:
     # 上滤

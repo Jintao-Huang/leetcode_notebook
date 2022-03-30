@@ -15,7 +15,7 @@ class Solution:
         for i in range(len(nums)):
             s.append(s[-1] + nums[i])
         ans = int(1e8)
-        q = deque()
+        q = deque()  # 递增
         for hi in range(len(s)):
             x = s[hi]
             while len(q) > 0 and x <= s[q[-1]]:

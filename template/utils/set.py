@@ -66,11 +66,27 @@ def issuperset(s1: Set[int], s2: Set[int]) -> bool:
     return True
 
 
+def ge(s1: Set[int], s2: Set[int]) -> bool:
+    return issuperset(s1, s2)
+
+
+def gt(s1: Set[int], s2: Set[int]) -> bool:
+    return issuperset(s1, s2) and len(s1) > len(s2)
+
+
 def issubset(s1: Set[int], s2: Set[int]) -> bool:
     for x in s1:
         if x not in s2:
             return False
     return True
+
+
+def le(s1: Set[int], s2: Set[int]) -> bool:
+    return issubset(s1, s2)
+
+
+def lt(s1: Set[int], s2: Set[int]) -> bool:
+    return issubset(s1, s2) and len(s1) < len(s2)
 
 
 def isdisjoint(s1: Set[int], s2: Set[int]) -> bool:
@@ -91,3 +107,8 @@ if __name__ == '__main__':
     print(s1.issuperset(s2))
     print(s1.issubset(s2))
     print(s1.isdisjoint(s2))
+
+
+def discard(s: Set[int], x: int) -> None:
+    if x in s:
+        s.remove(x)

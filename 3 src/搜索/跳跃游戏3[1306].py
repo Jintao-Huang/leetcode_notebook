@@ -3,7 +3,7 @@
 # Date: 
 
 from typing import List
-from template.utils.array import find
+from template.utils.list import find
 
 
 class Solution:

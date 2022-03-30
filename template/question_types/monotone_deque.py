@@ -34,7 +34,7 @@ def next_le(nums: List[int]) -> List[int]:
         st.append(lo)
     return ans
 
-
+# 32123. 后2知道前3的idx
 def prev_ge(nums: List[int]) -> List[int]:
     ans = [None] * len(nums)
     st = []

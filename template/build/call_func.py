@@ -10,9 +10,7 @@ def call_func(func_name_list: List[str], args_list: List[List], env: Dict) -> Li
     for i in range(len(func_name_list)):
         func_name = func_name_list[i]
         args = args_list[i]
-        if i > 0:
-            args.insert(0, ans_list[0])
         ans_list.append(eval(func_name, env)(*args))
         if i == 0:
-            env.update(ans_list[0].__class__.__dict__)
+            env.update({i: getattr(ans_list[0], i) for i in dir(ans_list[0])})
     return ans_list
