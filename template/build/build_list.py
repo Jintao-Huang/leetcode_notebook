@@ -11,6 +11,9 @@ class ListNode:
         self.val = val
         self.next = next
 
+    def __str__(self):
+        return list_to_str(self)
+
 
 def list_to_str(head: Optional[ListNode]) -> str:
     ans = []

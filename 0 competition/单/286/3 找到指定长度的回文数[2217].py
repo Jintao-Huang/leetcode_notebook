@@ -2,16 +2,7 @@
 # Email: hjt_study@qq.com
 # Date: 
 from typing import List
-
-
-def reverse_num(x: int) -> int:
-    """Ot(LogX) Os(1). 其中Log为Log10"""
-    ans = 0
-    while x > 0:
-        ans *= 10
-        ans += x % 10
-        x //= 10
-    return ans
+from template.utils.palindrome import gen_palindrome_num
 
 
 class Solution:
@@ -26,12 +17,11 @@ class Solution:
             if a >= n * 10:
                 ans.append(-1)
                 continue
-            b = reverse_num(a)
+            x, x2 = gen_palindrome_num(a)
             if intLength % 2 == 1:
-                x = a * n + b % n
+                ans.append(x)
             else:
-                x = a * n * 10 + b
-            ans.append(x)
+                ans.append(x2)
         return ans
 
 

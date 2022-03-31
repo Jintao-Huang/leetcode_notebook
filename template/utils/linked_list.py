@@ -11,6 +11,7 @@ except ImportError:
 
 
 def get_list_mid(head: ListNode) -> ListNode:
+    # 偏左
     p, p2 = head, head
     while p2.next is not None and p2.next.next is not None:
         p = p.next
@@ -19,8 +20,8 @@ def get_list_mid(head: ListNode) -> ListNode:
 
 
 def reverse_list(start: ListNode, end: ListNode) -> ListNode:
-    # [start, end]. p.next = reverse_list(p.next, p2)
-    p, p2 = start, end.next
+    # [start, end). p.next = reverse_list(p.next, p2)
+    p, p2 = start, end
     pe = p2
     while p != pe:
         pn = p.next

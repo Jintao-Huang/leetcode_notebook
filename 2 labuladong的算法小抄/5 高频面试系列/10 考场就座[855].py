@@ -1,7 +1,7 @@
 # Author: Jintao Huang
 # Email: hjt_study@qq.com
 # Date: 
-from sortedcontainers import SortedList
+from sortedcontainers import SortedList as _SortedList
 
 
 class ExamRoom:
@@ -26,7 +26,7 @@ class ExamRoom:
 
         self.n = n
         itv = (0, n - 1)
-        self.sl = SortedList([], key)  # start, end. 最大的在最后
+        self.sl = _SortedList([], key)  # start, end. 最大的在最后
         self.lo_map_hi = {}
         self.hi_map_lo = {}
         self._add_interval(itv)
@@ -62,9 +62,51 @@ class ExamRoom:
         self._add_interval((lo, hi))
 
 
+from bisect import insort_left, insort_right, bisect_right
+from template.data_structure.sorted_list import SortedList
+
+
+class ExamRoom2:
+    def __init__(self, n: int):
+        self.stu = SortedList()  # or SortedList(). SortedList: 慢
+        self.n = n
+
+    def seat(self) -> int:
+        if len(self.stu) == 0:
+            s = 0
+            self.stu.add(0)
+        else:
+            s = 0
+            d = self.stu[0]
+            for i in range(1, len(self.stu)):
+                d2 = (self.stu[i] - self.stu[i - 1]) // 2
+                if d2 > d:
+                    s = self.stu[i - 1] + d2
+                    d = d2
+            if self.stu[-1] != self.n - 1:
+                d2 = self.n - 1 - self.stu[- 1]
+                if d2 > d:
+                    s = self.stu[- 1] + d2
+            self.stu.add(s)
+        return s
+
+    def leave(self, p: int) -> None:
+        self.stu.remove(p)
+
+
 from template.build.call_func import call_func
 
+# print(call_func(
+#     ["ExamRoom", "seat", "seat", "seat", "leave", "leave", "seat", "seat", "seat", "seat", "seat", "seat", "seat",
+#      "seat", "seat", "leave"],
+#     [[10], [], [], [], [0], [4], [], [], [], [], [], [], [], [], [], [0]], globals()))
+#
+# print(call_func(
+#     ["ExamRoom2", "seat", "seat", "seat", "leave", "leave", "seat", "seat", "seat", "seat", "seat", "seat", "seat",
+#      "seat", "seat", "leave"],
+#     [[10], [], [], [], [0], [4], [], [], [], [], [], [], [], [], [], [0]], globals()))
+
+
 print(call_func(
-    ["ExamRoom", "seat", "seat", "seat", "leave", "leave", "seat", "seat", "seat", "seat", "seat", "seat", "seat",
-     "seat", "seat", "leave"],
-    [[10], [], [], [], [0], [4], [], [], [], [], [], [], [], [], [], [0]], globals()))
+    ["ExamRoom2", "seat", "seat", "seat", "seat", "leave", "seat"],
+    [[10], [], [], [], [], [4], []], globals()))

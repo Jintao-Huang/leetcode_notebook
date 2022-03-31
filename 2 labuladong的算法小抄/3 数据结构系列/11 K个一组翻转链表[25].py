@@ -4,17 +4,8 @@
 
 from typing import Optional
 from template.build.build_list import ListNode, build_list, list_to_str
+from template.utils.linked_list import reverse_list
 
-
-def reverse_list(head: ListNode, end: ListNode) -> ListNode:
-    p, p2 = head, end.next
-    pe = p2
-    while p != pe:
-        pn = p.next
-        p.next = p2
-        p2 = p
-        p = pn
-    return p2  # head
 
 
 class Solution:
@@ -26,7 +17,7 @@ class Solution:
         while p2 is not None:
             if i >= k:
                 p3 = p.next
-                p.next = reverse_list(p3, p2)
+                p.next = reverse_list(p3, p2.next)
                 p = p3
                 p2 = p
                 i = 0

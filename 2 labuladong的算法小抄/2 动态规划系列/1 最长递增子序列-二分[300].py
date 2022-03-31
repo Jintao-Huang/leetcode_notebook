@@ -34,6 +34,8 @@ from bisect import bisect_left
 
 
 class Solution2:
+    # 堆顶数 递增
+    # 每堆: 非增
     def lengthOfLIS(self, nums: List[int]) -> int:
         ans = []
         for i in range(len(nums)):

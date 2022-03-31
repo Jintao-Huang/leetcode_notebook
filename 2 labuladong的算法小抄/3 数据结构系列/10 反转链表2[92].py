@@ -3,17 +3,7 @@
 # Date: 
 
 from template.build.build_list import ListNode, build_list, list_to_str
-
-
-def reverse_list(head: ListNode, end: ListNode) -> ListNode:
-    p, p2 = head, end.next
-    pe = p2
-    while p != pe:
-        pn = p.next
-        p.next = p2
-        p2 = p
-        p = pn
-    return p2  # head
+from template.utils.linked_list import reverse_list
 
 
 class Solution:
@@ -25,7 +15,7 @@ class Solution:
         p2 = p.next
         for i in range(left, right):
             p2 = p2.next
-        p.next = reverse_list(p.next, p2)
+        p.next = reverse_list(p.next, p2.next)
         return head.next
 
 
