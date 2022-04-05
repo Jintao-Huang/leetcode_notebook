@@ -4,8 +4,9 @@
 
 import math
 from typing import List, Dict
-
-
+# import numba
+#
+# @numba.njit
 def is_prime_num(x: int) -> bool:
     """Ot(sqrt(N)) Os(1)"""
     if x < 2:

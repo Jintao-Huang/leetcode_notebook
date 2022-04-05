@@ -34,7 +34,7 @@ def tree_to_str(root: Optional[TreeNode]) -> str:
                 all_None = False
         if all_None:
             break
-    while ans[-1] is None:
+    while len(ans) > 0 and ans[-1] is None:
         ans.pop()
 
     return json.dumps(ans)
