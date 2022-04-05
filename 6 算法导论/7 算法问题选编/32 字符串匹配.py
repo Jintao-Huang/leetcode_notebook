@@ -167,7 +167,8 @@ def kmp_matcher(T: str, P: str, pi: List[int] = None) -> List[int]:
 # 自动机计算转义函数要考虑下一字符
 #   kmp的next数组不考虑下一字符
 def compute_prefix_function(P: str) -> List[int]:
-    # pi[q]: Pq的真后缀P的最长前缀长度(除原串外, 因为已经不匹配了).
+    # pi[q]: P[:q]的最长相等[真]前后缀(不能等于P[:q])的字符数
+    # 考研教科书中定义: P[:q-1]的最长相等[真]前后缀的字符数(+1, 若索引从1开始)
     m = len(P)
     pi = [0] * m
     pi[0] = 0
@@ -187,6 +188,8 @@ def compute_prefix_function(P: str) -> List[int]:
 #     P = "ababaca"
 #     print(compute_prefix_function(P))
 #     print(kmp_matcher(T, P, pi))
+
+
 def compute_transition_function2(P: List[int], Sigma: List[int]) -> List[List[int]]:
     # p587
     # 直接根据定义delta[q][a] = sigma[Pq+a]
@@ -210,6 +213,7 @@ def compute_transition_function2(P: List[int], Sigma: List[int]) -> List[List[in
                 theta[q][c] = q + 1
     return theta
 
+
 # if __name__ == '__main__':
 #     # P = [0, 1, 0, 1, 0, 2, 0]
 #     # T = [0, 1, 0, 1, 0, 1, 0, 2, 0, 1, 0]
@@ -225,3 +229,50 @@ def compute_transition_function2(P: List[int], Sigma: List[int]) -> List[List[in
 #     print(delta)
 #     print(delta2)
 #     print(finite_automaton_matcher(T, delta2))
+
+
+# 使用考研定义的next数组: 缺点: 不能连续匹配.
+
+def kmp_matcher2(T: str, P: str, pi: List[int]) -> int:
+    # p589
+    n = len(T)
+    m = len(P)
+    q = 0  # 匹配的数量/继续匹配的位置
+    for i in range(n):
+        while q >= 0 and P[q] != T[i]:
+            q = pi[q]
+        if q == -1 or P[q] == T[i]:
+            q += 1
+        if q == m:
+            return i - m + 1
+
+
+# 与自动机区别:
+# 自动机计算转义函数要考虑下一字符
+#   kmp的next数组不考虑下一字符
+def compute_prefix_function2(P: str) -> List[int]:
+    # pi[q]: P[:q]的最长相等[真]前后缀(不能等于P[:q])的字符数
+    # 考研教科书中定义: P[:q-1]的最长相等[真]前后缀的字符数
+    m = len(P)
+    pi = [0] * m
+    pi[0] = -1
+    pi[1] = 0
+    k = 0
+    for q in range(1, m - 1):
+        while k >= 0 and P[k] != P[q]:
+            k = pi[k]
+        if k == -1 or P[k] == P[q]:
+            k += 1
+        pi[q + 1] = k
+    return pi
+
+
+if __name__ == '__main__':
+    P = "abaabcac"
+    T = "babaaabaabcac"
+    pi = compute_prefix_function(P)
+    pi2 = compute_prefix_function2(P)
+    print(kmp_matcher(T, P, pi))
+    print(kmp_matcher2(T, P, pi2))
+    print(pi)
+    print(pi2)

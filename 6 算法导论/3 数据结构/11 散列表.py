@@ -60,20 +60,20 @@ class HashTable:
     # 链接法
     def __init__(self, n: int, hash_func: Callable[[int], int]):
         self.T = [[] for _ in range(n)]
-        self.hash_fun = hash_func
+        self.hash_func = hash_func
 
     def chained_hash_insert(self, k: int, x: int) -> None:
-        self.T[self.hash_fun(k)].append((k, x))
+        self.T[self.hash_func(k)].append((k, x))
 
     def chained_hash_search(self, k: int) -> int:
-        ll = self.T[self.hash_fun(k)]
+        ll = self.T[self.hash_func(k)]
         for kx, x in ll:
             if kx == k:
                 return x
         raise KeyError("not found")
 
     def chained_hash_delete(self, k: int) -> None:
-        ll = self.T[self.hash_fun(k)]
+        ll = self.T[self.hash_func(k)]
         for i in range(len(ll)):
             kx = ll[i][0]
             if kx == k:

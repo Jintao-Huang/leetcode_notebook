@@ -5,7 +5,7 @@ from typing import List, Union
 
 
 class ListNode2:
-    def __init__(self, val: int, prev=None, next=None):
+    def __init__(self, val: int, prev: 'ListNode2' = None, next: 'ListNode2' = None):
         self.val = val
         self.prev = prev  # type: ListNode2
         self.next = next  # type: ListNode2
@@ -15,58 +15,53 @@ class LinkedList:
     """双向循环链表"""
 
     def __init__(self, nums: List[int]):
-        head = ListNode2(0, None, None)
-        head.next, head.prev = head, head
+        self.nil = ListNode2(0)
+        self.nil.prev = self.nil
+        self.nil.next = self.nil
         self.length = 0
         #
-        self.head = head
-
         for x in nums:
             self.append(x)
 
+    def search(self, k: int) -> ListNode2:
+        x = self.nil.next  # type: ListNode2
+        while x != self.nil and x.val != k:
+            x = x.next
+        return x
+
     def append(self, x: Union[int, ListNode2]) -> None:
-        self.insert_before(self.head, x)
+        if not isinstance(x, ListNode2):
+            x = ListNode2(x)
+        self.insert_after(x, self.nil.prev)
 
     def appendleft(self, x: Union[int, ListNode2]) -> None:
-        self.insert_after(self.head, x)
+        if not isinstance(x, ListNode2):
+            x = ListNode2(x)
+        self.insert_after(x, self.nil)
 
     def pop(self) -> int:
-        p = self.head.prev
+        p = self.nil.prev
+        if p == self.nil:
+            raise ValueError("list empty")
         x = p.val
         self.delete(p)
         return x
 
     def popleft(self) -> int:
-        p = self.head.next
+        p = self.nil.next
+        if p == self.nil:
+            raise ValueError("list empty")
         x = p.val
         self.delete(p)
         return x
 
-    def insert_after(self, p: ListNode2, x: Union[int, ListNode2]) -> ListNode2:
-        """insert x after p"""
-        if not isinstance(x, ListNode2):
-            n = ListNode2(x, p, p.next)
-        else:
-            n = x
-            n.prev = p
-            n.next = p.next
-        p.next.prev = n
-        p.next = n
+    def insert_after(self, p: ListNode2, p2: ListNode2) -> None:
+        """insert p after p2"""
+        p.next = p2.next
+        p2.next.prev = p
+        p2.next = p
+        p.prev = p2
         self.length += 1
-        return n
-
-    def insert_before(self, p: ListNode2, x: Union[int, ListNode2]) -> ListNode2:
-        """insert x before p"""
-        if not isinstance(x, ListNode2):
-            n = ListNode2(x, p.prev, p)
-        else:
-            n = x
-            n.prev = p.prev
-            n.next = p
-        p.prev.next = n
-        p.prev = n
-        self.length += 1
-        return n
 
     def delete(self, p: ListNode2) -> None:
         """delete p"""
@@ -75,19 +70,20 @@ class LinkedList:
         self.length -= 1
 
     def __str__(self) -> str:
-        p = self.head.next
+        # just for test
         ans = []
-        while p != self.head:
-            ans.append(p.val)
-            p = p.next
+        x = self.nil.next
+        while x != self.nil:
+            ans.append(x.val)
+            x = x.next
         return str(ans)
 
     def __len__(self) -> int:
         return self.length
 
     def iter_list(self):
-        p = self.head.next
-        while p != self.head:
+        p = self.nil.next
+        while p != self.nil:
             yield p
             p = p.next
 
