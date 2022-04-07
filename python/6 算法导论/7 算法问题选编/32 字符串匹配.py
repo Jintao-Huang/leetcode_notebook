@@ -144,12 +144,10 @@ def compute_transition_function(P: List[int], Sigma: List[int]) -> List[List[int
 #     print(finite_automaton_matcher(T, delta))
 
 
-def kmp_matcher(T: str, P: str, pi: List[int] = None) -> List[int]:
+def kmp_matcher(T: str, P: str, pi: List[int]) -> List[int]:
     # p589
     n = len(T)
     m = len(P)
-    if pi is None:
-        pi = compute_prefix_function(P)
     q = 0  # 匹配的数量/继续匹配的位置
     ans = []
     for i in range(n):
@@ -239,12 +237,13 @@ def kmp_matcher2(T: str, P: str, pi: List[int]) -> int:
     m = len(P)
     q = 0  # 匹配的数量/继续匹配的位置
     for i in range(n):
-        while q >= 0 and P[q] != T[i]:
+        while q >= 0 and P[q] != T[i]:  # or `k > 0 and P[k] != P[q]`, 即不使用-1这个项
             q = pi[q]
-        if q == -1 or P[q] == T[i]:
+        if q == -1 or P[q] == T[i]:  # or `P[k] == P[q]`
             q += 1
         if q == m:
             return i - m + 1
+    return -1
 
 
 # 与自动机区别:
@@ -254,25 +253,55 @@ def compute_prefix_function2(P: str) -> List[int]:
     # pi[q]: P[:q]的最长相等[真]前后缀(不能等于P[:q])的字符数
     # 考研教科书中定义: P[:q-1]的最长相等[真]前后缀的字符数
     m = len(P)
+    if m == 0:
+        return []
+    if m == 1:
+        return [-1]
     pi = [0] * m
     pi[0] = -1
     pi[1] = 0
     k = 0
     for q in range(1, m - 1):
-        while k >= 0 and P[k] != P[q]:
+        while k >= 0 and P[k] != P[q]:  # or `k > 0 and P[k] != P[q]`
             k = pi[k]
-        if k == -1 or P[k] == P[q]:
+        if k == -1 or P[k] == P[q]:  # or `P[k] == P[q]`
             k += 1
         pi[q + 1] = k
     return pi
 
 
+# 与自动机区别:
+# 自动机计算转义函数要考虑下一字符
+#   kmp的next数组不考虑下一字符
+def compute_prefix_function3(P: str) -> List[int]:
+    # 计算nextval数组
+    # pi[q]: P[:q]的最长相等[真]前后缀(不能等于P[:q])的字符数
+    # 考研教科书中定义: P[:q-1]的最长相等[真]前后缀的字符数(+1, 若索引从1开始)
+    m = len(P)
+    pi = [0] * m
+    # pi[0] = 0
+    k = 0
+    for q in range(1, m):
+        while k > 0 and P[k] != P[q]:
+            k = pi[k - 1]
+        if P[k] == P[q]:
+            k += 1
+        pi[q] = k
+    pi_v = pi  # 利用错误的当前结点的信息
+    # pi: 利用错误的节点的前后缀的信息
+    for k in range(2, m):
+        km = k - 1
+        if P[k] == P[pi[km]] and pi[km] > 0:
+            pi_v[km] = pi_v[pi[km] - 1]
+        else:
+            pi_v[km] = pi[km]
+    return pi_v
+
+
 if __name__ == '__main__':
-    P = "abaabcac"
+    P = "ababaaababaa"
     T = "babaaabaabcac"
-    pi = compute_prefix_function(P)
-    pi2 = compute_prefix_function2(P)
+    pi = compute_prefix_function3(P)
     print(kmp_matcher(T, P, pi))
-    print(kmp_matcher2(T, P, pi2))
+    # print(kmp_matcher2(T, P, pi2))
     print(pi)
-    print(pi2)

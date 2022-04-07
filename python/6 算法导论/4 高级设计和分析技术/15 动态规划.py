@@ -275,8 +275,8 @@ def print_LCS(b: List[List[int]], X: str, i: int, j: int, ans: List[str]) -> Non
     elif b[i][j] == 1:
         print_LCS(b, X, i, j - 1, ans)
     else:
-        ans.append(X[i])
         print_LCS(b, X, i - 1, j - 1, ans)
+        ans.append(X[i])
 
 
 # if __name__ == '__main__':
@@ -286,7 +286,6 @@ def print_LCS(b: List[List[int]], X: str, i: int, j: int, ans: List[str]) -> Non
 #     print(c[len(X)][len(Y)])
 #     ans = []
 #     print_LCS(b, X, len(X) - 1, len(Y) - 1, ans)
-#     ans.reverse()
 #     print("".join(ans))
 
 
@@ -304,10 +303,10 @@ def print_LCS(b: List[List[int]], X: str, i: int, j: int, ans: List[str]) -> Non
 def optimal_BST(p: List[float], q: List[float]) -> Tuple[List[List[float]], List[List[int]]]:
     # p229
     # p: n个关键字, q: n+1个伪关键字
-    # e[i+1,j+1]: pi..pj的最优二叉树一次搜索的期望代价. 我们希望计算e[1,n]
+    # e[i,j]: pi-1..pj-1的最优二叉树一次搜索的期望代价. 我们希望计算e[1,n]
     #   期望代价=sum((depth+1)*pi + (depth+1)*qi)
-    # w[i+1,j+1]: pi..pj的子树的所有概率之和
-    # root[i,j]: 保存pi..pj的根节点kr的下标r
+    # w[i,j]: pi-1..pj-1的子树的所有概率之和
+    # root[i-1,j-1]: 保存pi-1..pj-1的根节点kr-1的下标r-1
     n = len(p)
     INF = float("inf")
     # e[i:i-1]: 表示不含关键字, 含q[i-1]. e[i:i]表示q[i-1], p[i-1], q[i]
@@ -315,19 +314,52 @@ def optimal_BST(p: List[float], q: List[float]) -> Tuple[List[List[float]], List
     w = [[0.] * (n + 1) for _ in range(n + 2)]
     root = [[0] * n for _ in range(n)]
     for i in range(1, n + 2):
-        e[i][i - 1] = q[i - 1]
-        w[i][i - 1] = q[i - 1]
-    for l in range(1, n + 1):  # 长度
-        for i in range(1, n - l + 2):
-            j = i + l - 1
+        im = i - 1
+        e[i][im] = q[im]
+        w[i][im] = q[im]
+    for l in range(n):  # 长度
+        for i in range(1, n - l + 1):
+            j = i + l
             im, jm = i - 1, j - 1  # for p, root
             e[i][j] = INF
             w[i][j] = w[i][j - 1] + p[jm] + q[j]
             for r in range(i, j + 1):
+                rm = r - 1
                 t = e[i][r - 1] + e[r + 1][j] + w[i][j]
                 if t < e[i][j]:
                     e[i][j] = t
-                    root[im][jm] = r - 1
+                    root[im][jm] = rm
+    return e, root
+
+
+# 知道每个关键字和伪关键字的搜索概率, 所以可以确定其搜索的期望代价
+def optimal_BST2(p: List[float], q: List[float]) -> Tuple[List[List[float]], List[List[int]]]:
+    # p229
+    # p: n个关键字, q: n+1个伪关键字
+    # e[i,j]: pi..pj-1的最优二叉树一次搜索的期望代价. 我们希望计算e[1,n]
+    #   期望代价=sum((depth+1)*pi + (depth+1)*qi)
+    # w[i,j]: pi..pj-1的子树的所有概率之和
+    # root[i,j-1]: 保存pi..pj-1的根节点kr的下标r
+    n = len(p)
+    INF = float("inf")
+    # e[i,i]: 表示不含关键字, 含q[i]. e[i,i+1]表示q[i], p[i], q[i+1]
+    e = [[0.] * (n + 1) for _ in range(n + 1)]
+    w = [[0.] * (n + 1) for _ in range(n + 1)]
+    root = [[0] * n for _ in range(n)]
+    for i in range(n + 1):
+        e[i][i] = q[i]
+        w[i][i] = q[i]
+    for l in range(1, n + 1):  # 长度
+        for i in range(n - l + 1):
+            j = i + l
+            jm = j - 1  # for p, root
+            e[i][j] = INF
+            w[i][j] = w[i][j - 1] + p[jm] + q[j]
+            for r in range(i, j):
+                t = e[i][r] + e[r + 1][j] + w[i][j]
+                if t < e[i][j]:
+                    e[i][j] = t
+                    root[i][jm] = r
     return e, root
 
 
@@ -352,9 +384,16 @@ def print_optimal_BST(root: List[List[int]], i: int, j: int, ans: List[str]) -> 
 #     p = [0.15, 0.1, 0.05, 0.1, 0.2]
 #     q = [0.05, 0.1, 0.05, 0.05, 0.05, 0.1]
 #     e, root = optimal_BST(p, q)
+#     e2, root2 = optimal_BST2(p, q)
+#     print(e, root)
 #     print(e[1][len(p)])
+#     print(e2[0][len(p)])
+#     #
 #     ans = []
 #     print_optimal_BST(root, 0, len(p) - 1, ans)  # 这不是红黑树, 只是二叉搜索树
+#     print("".join(ans))
+#     ans = []
+#     print_optimal_BST(root2, 0, len(p) - 1, ans)  # 这不是红黑树, 只是二叉搜索树
 #     print("".join(ans))
 
 """p236

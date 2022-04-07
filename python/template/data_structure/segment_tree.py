@@ -5,6 +5,10 @@ from math import ceil, log2
 from typing import List
 
 
+# 区间树和线段树不同
+#   区间树: 判断一个点是否属于某个区间
+#   线段树: 求某段区间的和
+
 class SegmentTree:
     def __init__(self, arr):
         self.n = len(arr)
