@@ -5,8 +5,8 @@ class Solution:
     """动态规划"""
 
     def isMatch(self, s: str, p: str) -> bool:
-        # dp[i][j]: s[:i], p[:j], 是否匹配
-        # dp[i][j]; dp[i][j-2], dp[i-1][j]
+        # dp_N^2[i][j]: s[:i], p[:j], 是否匹配
+        # dp_N^2[i][j]; dp_N^2[i][j-2], dp_N^2[i-1][j]
 
         dp = [[False] * (len(p) + 1) for _ in range(len(s) + 1)]
         for i in range(len(s) + 1):

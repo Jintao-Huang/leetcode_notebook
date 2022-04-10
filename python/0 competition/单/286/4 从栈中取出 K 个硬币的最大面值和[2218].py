@@ -8,8 +8,8 @@ from typing import List
 class Solution:
     def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
         # 选择: len(piles[j])
-        # dp[i][j]: 前i个堆, 共取j个. 最大收益
-        # dp[i][j]; dp[i-1][k]
+        # dp_N^2[i][j]: 前i个堆, 共取j个. 最大收益
+        # dp_N^2[i][j]; dp_N^2[i-1][k]
         dp = [[0] * (k + 1) for _ in range(len(piles) + 1)]
         for i in range(1, len(piles) + 1):
             for j in range(1, k + 1):

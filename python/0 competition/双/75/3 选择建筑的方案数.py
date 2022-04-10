@@ -8,7 +8,7 @@ class Solution:
     def numberOfWays(self, s: str) -> int:
         # C: 0, 1
         # S: [i][2][3]. i之前的方案数, 最后一个字母, 含几个
-        # dp[i][j][k]; dp[i-1][j][k]; dp[i-1][~j][k-1]
+        # dp_N^2[i][j][k]; dp_N^2[i-1][j][k]; dp_N^2[i-1][~j][k-1]
         dp = [[0] * 2 for _ in range(3)]
         for i in range(len(s)):
             for j in reversed(range(3)):

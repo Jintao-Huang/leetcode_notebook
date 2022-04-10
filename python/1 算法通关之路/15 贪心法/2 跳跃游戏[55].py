@@ -30,7 +30,7 @@ class Solution2:
     """动态规划. Ot(N) Os(N)"""
 
     def canJump(self, nums: List[int]) -> bool:
-        # dp[i]: 以i结束, 最大可跳最远距离.
+        # dp_N^2[i]: 以i结束, 最大可跳最远距离.
         dp = [0] * len(nums)
         dp[0] = nums[0]
         for i in range(1, len(nums)):

@@ -10,9 +10,9 @@ class Solution:
 
     def rob(self, nums: List[int]) -> int:
         # 选择: 选, 不选
-        # dp[i]: 前i个nums(含)的偷窃最高金额
-        # base: dp[0]=nums[0], dp[1]=max(nums[0],nums[1])
-        # 转移: dp[i]=max(dp[i-2]+nums[i], dp[i-1])
+        # dp_N^2[i]: 前i个nums(含)的偷窃最高金额
+        # base: dp_N^2[0]=nums[0], dp_N^2[1]=max(nums[0],nums[1])
+        # 转移: dp_N^2[i]=max(dp_N^2[i-2]+nums[i], dp_N^2[i-1])
         if len(nums) == 1:
             return nums[0]
         dp = [nums[0], max(nums[0], nums[1])]

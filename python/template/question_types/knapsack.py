@@ -14,38 +14,38 @@ V: 每个物品的价值
 
 
 # def _k(W: List[int], V: List[int], C: int) -> int:
-#     # dp[i][j]: 只装[0, i)个物品, 背包容量为j, 最大价值
+#     # dp_N^2[i][j]: 只装[0, i)个物品, 背包容量为j, 最大价值
 #     # 选择: 装, 不装
-#     # dp[i][j]; dp[i-1][j-w[i]]; dp[i-1][j]
+#     # dp_N^2[i][j]; dp_N^2[i-1][j-w[i]]; dp_N^2[i-1][j]
 #
-#     dp = [[0] * (C + 1) for _ in range(len(W) + 1)]
+#     dp_N^2 = [[0] * (C + 1) for _ in range(len(W) + 1)]
 #     for i in range(1, len(W) + 1):
 #         for j in range(C + 1):
-#             # dp[0][:] = 0
+#             # dp_N^2[0][:] = 0
 #             if j - W[i - 1] < 0:
-#                 dp[i][j] = dp[i - 1][j]
+#                 dp_N^2[i][j] = dp_N^2[i - 1][j]
 #             else:
-#                 dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - W[i - 1]] + V[i - 1])
-#     return dp[len(W)][C]
+#                 dp_N^2[i][j] = max(dp_N^2[i - 1][j], dp_N^2[i - 1][j - W[i - 1]] + V[i - 1])
+#     return dp_N^2[len(W)][C]
 #
 #
 # # 装满
 # def _k_full(W: List[int], V: List[int], C: int) -> int:
-#     # dp[i][j]: 只装[0, i)个物品, 装满背包容量j, 最大价值
+#     # dp_N^2[i][j]: 只装[0, i)个物品, 装满背包容量j, 最大价值
 #     # 选择: 装, 不装
-#     # dp[i][j]; dp[i-1][j-w[i]]; dp[i-1][j]
+#     # dp_N^2[i][j]; dp_N^2[i-1][j-w[i]]; dp_N^2[i-1][j]
 #     N_INF = int(-1e8)
-#     dp = [[N_INF] * (C + 1) for _ in range(len(W) + 1)]
+#     dp_N^2 = [[N_INF] * (C + 1) for _ in range(len(W) + 1)]
 #     for i in range(len(W) + 1):
 #         for j in range(C + 1):
 #             if i == 0 and j == 0:
-#                 dp[i][j] = 0
+#                 dp_N^2[i][j] = 0
 #                 continue
-#             if j - W[i - 1] < 0 or dp[i - 1][j - W[i - 1]] == N_INF:
-#                 dp[i][j] = dp[i - 1][j]
+#             if j - W[i - 1] < 0 or dp_N^2[i - 1][j - W[i - 1]] == N_INF:
+#                 dp_N^2[i][j] = dp_N^2[i - 1][j]
 #             else:
-#                 dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - W[i - 1]] + V[i - 1])
-#     return dp[len(W)][C]
+#                 dp_N^2[i][j] = max(dp_N^2[i - 1][j], dp_N^2[i - 1][j - W[i - 1]] + V[i - 1])
+#     return dp_N^2[len(W)][C]
 
 
 # 方法数

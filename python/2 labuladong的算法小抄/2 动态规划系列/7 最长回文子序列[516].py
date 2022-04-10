@@ -7,8 +7,8 @@ class Solution:
     """动态规划. Ot(N^2) Os(N^2). 空间复杂度可降"""
 
     def longestPalindromeSubseq(self, s: str) -> int:
-        # dp[i][j]: s[i:j+1]
-        # dp[i][j]; s[i+1][j-1]; s[i+1][j],s[i][j-1]
+        # dp_N^2[i][j]: s[i:j+1]
+        # dp_N^2[i][j]; s[i+1][j-1]; s[i+1][j],s[i][j-1]
         dp = [[0 for _ in range(len(s))] for _ in range(len(s))]
 
         #

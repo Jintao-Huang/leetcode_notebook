@@ -8,8 +8,8 @@ class Solution:
 
     def minDistance(self, word1: str, word2: str) -> int:
         # 选择: 匹配/不匹配
-        # dp[i][j]: i结尾. 匹配完word2中第j个
-        # dp[i][j]; dp[i-1][j-1];dp[i-1][j-1], dp[i-1][j], dp[i][j-1]
+        # dp_N^2[i][j]: i结尾. 匹配完word2中第j个
+        # dp_N^2[i][j]; dp_N^2[i-1][j-1];dp_N^2[i-1][j-1], dp_N^2[i-1][j], dp_N^2[i][j-1]
         dp = [[0] * (len(word2)+ 1) for _ in range(len(word1) + 1)]
         # base解决越界情况
         for i in range(len(word1) + 1):

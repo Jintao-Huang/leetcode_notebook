@@ -20,8 +20,8 @@ class Solution:
         n = len(nums)
         if n == 0:
             return 0
-        # dp[i]: nums[0...i]以nums[i]结尾的最大子数组和
-        dp = nums.copy()  # dp[0]: base
+        # dp_N^2[i]: nums[0...i]以nums[i]结尾的最大子数组和
+        dp = nums.copy()  # dp_N^2[0]: base
         #
         for i in range(1, n):
             #

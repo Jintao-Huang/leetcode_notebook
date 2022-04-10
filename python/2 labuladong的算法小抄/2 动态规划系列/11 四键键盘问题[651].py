@@ -25,8 +25,8 @@ key 4：（Ctrl-V）：将缓冲区内容输出到上次输入的结束位置，
 class Solution:
     def maxA(self, N: int) -> int:
         # 选择: ...Ctrl-V, A
-        # dp[i]: 按键i次, 最多的A
-        # dp[i]; dp[i-1]; dp[i-3]
+        # dp_N^2[i]: 按键i次, 最多的A
+        # dp_N^2[i]; dp_N^2[i-1]; dp_N^2[i-3]
         dp = [0] * (N + 1)
         dp[0] = 0
         dp[1] = 1

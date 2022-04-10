@@ -31,7 +31,7 @@ class Solution2:
     """动态规划. Ot(N^2) Os(N)"""
 
     def canJump(self, nums: List[int]) -> bool:
-        # dp[i]: 以i开始, 是否能跳到终点
+        # dp_N^2[i]: 以i开始, 是否能跳到终点
         # 选择nums[i]个
         dp = [False] * len(nums)
         dp[-1] = True

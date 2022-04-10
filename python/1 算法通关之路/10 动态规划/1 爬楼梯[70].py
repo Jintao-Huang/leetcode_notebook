@@ -6,9 +6,9 @@ class Solution:
 
     def climbStairs(self, n: int) -> int:
         # 选择: 上1, 上2.
-        # dp[i]: 上i+1阶台阶方法数
-        # base: dp[1]=1, dp[2]=2
-        # 转移: dp[i]=dp[i-1]+dp[i-2]
+        # dp_N^2[i]: 上i+1阶台阶方法数
+        # base: dp_N^2[1]=1, dp_N^2[2]=2
+        # 转移: dp_N^2[i]=dp_N^2[i-1]+dp_N^2[i-2]
         dp = [1, 2]
         for i in range(2, n):
             dp.append(dp[i - 2] + dp[i - 1])
