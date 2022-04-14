@@ -11,12 +11,12 @@ from typing import List
 
 class SegmentTree:
     # 也可以写成指针树形式.
-    def __init__(self, arr):
-        self.n = len(arr)
+    def __init__(self, nums):
+        self.n = len(nums)
         h = int(ceil(log2(self.n) + 1))
         self.tree = [None] * (2 ** h - 1)  # type: List[int]
         # build tree
-        self._build_tree(arr, 0, self.n - 1, 0)
+        self._build_tree(nums, 0, self.n - 1, 0)
 
     def _build_tree(self, arr, lo, hi, i) -> int:
         if lo == hi:
@@ -68,11 +68,11 @@ class SegmentTree:
 if __name__ == '__main__':
     x = [0, 1, 2, 3, 4, 5, 6]
     t = SegmentTree(x)
-    print(t.query(0, 6))
+    print(t.sumRange(0, 6))
     print(t.update(0, -100))
-    print(t.query(0, 6))
-    print(t.query(0, 1))
-    print(t.query(0, 0))
+    print(t.sumRange(0, 6))
+    print(t.sumRange(0, 1))
+    print(t.sumRange(0, 0))
     """
     21
     None

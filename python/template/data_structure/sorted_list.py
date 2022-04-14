@@ -14,7 +14,7 @@ class SortedList:
         self.sl = nums  # type: List[int]
         self.sl.sort()
 
-    def add(self, x: int):
+    def add(self, x):
         insort_right(self.sl, x)
 
     def remove(self, x):

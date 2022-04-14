@@ -2,6 +2,8 @@
 # Email: hjt_study@qq.com
 # Date: 
 from enum import Enum
+from collections import deque
+import json
 
 
 class Color(Enum):
@@ -10,19 +12,16 @@ class Color(Enum):
 
 
 class RBTreeNode:
-    # p174
-    def __init__(self, key: int, color: Color = None,
+    # p193
+    def __init__(self, key: int, color: Color = Color.Black, size: int = 0,
                  p: 'RBTreeNode' = None, left: 'RBTreeNode' = None, right: 'RBTreeNode' = None):
         self.key = key
-        if color is None:
-            color = Color.Black
         self.color = color
+        # x.size = x.left.size + x.right.size + 1
+        self.size = size
         self.p = p
         self.left = left
         self.right = right
-
-
-from typing import Optional
 
 
 class RBTree:
@@ -34,6 +33,41 @@ class RBTree:
             root = nil
         self.root = root
         self.nil = nil
+
+    def getitem(self, x: RBTreeNode, i: int) -> RBTreeNode:
+        # p194
+        # order statistics. 返回x为根的子树中包含第i小关键字的节点
+        r = x.left.size + 1  # rank
+        if i == r:
+            return x
+        elif i < r:
+            return self.getitem(x.left, i)
+        else:
+            return self.getitem(x.right, i - r)
+
+    def bisect_left(self, x) -> int:
+        # p194
+        y = self.root
+        ans = 0
+        while y != self.nil:
+            if x <= y.key:
+                y = y.left
+            else:
+                ans += y.left.size + 1
+                y = y.right
+        return ans
+
+    def bisect_right(self, x) -> int:
+        # p194
+        y = self.root
+        ans = 0
+        while y != self.nil:
+            if x < y.key:
+                y = y.left
+            else:
+                ans += y.left.size + 1
+                y = y.right
+        return ans
 
     def left_rotate(self, x: RBTreeNode) -> None:
         # p177
@@ -51,6 +85,8 @@ class RBTree:
             x.p.right = y
         y.left = x
         x.p = y
+        y.size = x.size
+        x.size = x.left.size + x.right.size + 1
 
     def right_rotate(self, y: RBTreeNode) -> None:
         # 假设x.left不为空
@@ -67,6 +103,8 @@ class RBTree:
             y.p.right = x
         x.right = y
         y.p = x
+        x.size = y.size
+        y.size = y.left.size + y.right.size + 1
 
     def rb_insert(self, z: RBTreeNode) -> None:
         # p178
@@ -75,6 +113,7 @@ class RBTree:
         x = self.root
         while x is not self.nil:
             y = x
+            x.size += 1
             if z.key < x.key:
                 x = x.left
             else:
@@ -89,6 +128,7 @@ class RBTree:
         z.left = self.nil
         z.right = self.nil
         z.color = Color.Red  # 置为红, 可能违背红黑性质
+        z.size = 1
         self.rb_insert_fixup(z)
 
     def rb_insert_fixup(self, z: RBTreeNode) -> None:
@@ -171,6 +211,11 @@ class RBTree:
             y.left = z.left
             y.left.p = y
             y.color = z.color
+            y.size = z.size
+        p = x.p
+        while p != self.nil:
+            p.size -= 1
+            p = p.p
         # y为红色: 红黑性质保持:
         # 1. 黑高不变
         # 2. 不存在相邻红节点
@@ -235,3 +280,75 @@ class RBTree:
             else:
                 x = x.right
         return x
+
+    def __str__(self):
+        root = self.root
+        if root is None:
+            return "[]"
+
+        ans = []
+        q = deque([root])
+        while len(q) > 0:
+            all_None = True
+            for i in range(len(q)):
+                n = q.popleft()
+                if n == self.nil:
+                    ans.append(None)
+                    continue
+                ans.append((n.key, 'R' if n.color == Color.Red else 'B', n.size))
+                q.append(n.left)
+                q.append(n.right)
+                if n.left != self.nil or n.right != self.nil:
+                    all_None = False
+            if all_None:
+                break
+        while len(ans) > 0 and ans[-1] is None:
+            ans.pop()
+
+        return json.dumps(ans)
+
+
+class SortedList:
+    def __init__(self, nums=None):
+        if nums is None:
+            nums = []
+        self.rbt = RBTree()
+        self.length = 0
+        for x in nums:
+            self.add(RBTreeNode(x))
+
+    def add(self, n: RBTreeNode):
+        if not isinstance(n, RBTreeNode):
+            n = RBTreeNode(n)
+        self.rbt.rb_insert(n)
+        self.length += 1
+
+    def search(self, x) -> RBTreeNode:
+        return self.rbt.search(x)
+
+    def remove(self, n: RBTreeNode) -> None:
+        if not isinstance(n, RBTreeNode):
+            self.search(n)
+        self.rbt.rb_delete(n)
+        self.length -= 1
+
+    def bisect_left(self, x: int) -> int:
+        return self.rbt.bisect_left(x)
+
+    def bisect_right(self, x: int) -> int:
+        return self.rbt.bisect_right(x)
+
+    def __len__(self):
+        return self.length
+
+    def __getitem__(self, i) -> RBTreeNode:
+        return self.rbt.getitem(self.rbt.root, i + 1)
+
+    def __str__(self):
+        return str(self.rbt)
+
+
+if __name__ == '__main__':
+    x = SortedList([3, 2, 6, 4])  # [2, 3, 4, 6]
+    print(x)
+    print(x[1].key)

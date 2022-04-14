@@ -36,9 +36,9 @@ def quick_sort(nums: List[int]) -> None:
 
 
 def merge(nums: List[int], lo: int, mid: int, hi: int) -> None:
-    """mid: 是两个有序序列的分割点[lo, mid), [mid, hi]. Ot(N) Os(N)"""
-    b = nums[lo:mid].copy()
-    i, j = 0, mid
+    """mid: 是两个有序序列的分割点[lo, mid], [mid+1, hi]. Ot(N) Os(N)"""
+    b = nums[lo:mid + 1].copy()
+    i, j = 0, mid + 1
     k = lo
     while i < len(b) and j <= hi:
         if b[i] <= nums[j]:
@@ -56,19 +56,19 @@ def merge(nums: List[int], lo: int, mid: int, hi: int) -> None:
 
 def _merge_sort(nums: List[int], lo: int, hi: int) -> None:
     # [lo, hi]. 后序
-    if lo >= hi:
+    if lo == hi:
         return
     mid = lo + (hi - lo) // 2
     _merge_sort(nums, lo, mid)
     _merge_sort(nums, mid + 1, hi)
-    merge(nums, lo, mid + 1, hi)
+    merge(nums, lo, mid, hi)
 
 
 def merge_sort(nums: List[int]) -> None:
     _merge_sort(nums, 0, len(nums) - 1)
 
 
-from template.modules.heapq import _siftdown_max, heapify_max
+from python.template.modules.heapq import _siftdown_max, heapify_max
 
 
 def heap_sort(nums: List[int]) -> None:

@@ -20,11 +20,9 @@ class Color(Enum):
 
 class RBTreeNode:
     # p174
-    def __init__(self, key: int, color: Color = None,
+    def __init__(self, key: int, color: Color = Color.Black,
                  p: 'RBTreeNode' = None, left: 'RBTreeNode' = None, right: 'RBTreeNode' = None):
         self.key = key
-        if color is None:
-            color = Color.Black
         self.color = color
         self.p = p
         self.left = left

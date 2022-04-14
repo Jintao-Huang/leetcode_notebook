@@ -4,19 +4,25 @@
 
 from typing import List
 from python.template.data_structure.segment_tree import SegmentTree
+from python.template.utils.list import unique
 
 
 class Solution:
     def countSmaller(self, nums: List[int]) -> List[int]:
-        min_, max_ = min(nums), max(nums)
-        n = max_ - min_ + 1
-        arr = [0] * n
-        st = SegmentTree(arr)
-        ans = [0] * len(nums)
-        for i in reversed(range(len(nums))):
+        n = len(nums)
+        # 离散化
+        tmp = sorted(nums)
+        unique(tmp)
+        d = {x: i for i, x in enumerate(tmp)}
+        for i in range(n):
+            nums[i] = d[nums[i]]
+        #
+        st = SegmentTree([0] * len(tmp))
+        ans = [0] * n
+        for i in reversed(range(n)):
             x = nums[i]
-            ans[i] = st.sumRange(0, x - min_ - 1)
-            st.update(x - min_, 1, True)
+            ans[i] = st.sumRange(0, x - 1)
+            st.update(x, 1, True)
         return ans
 
 
@@ -36,3 +42,4 @@ class Solution2:
 
 
 print(Solution().countSmaller([5, 2, 6, 1]))
+print(Solution2().countSmaller([5, 2, 6, 1]))
