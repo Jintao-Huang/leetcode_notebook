@@ -7,6 +7,7 @@ from typing import List
 
 
 class SortedList:
+    # 或进行分块处理.
     def __init__(self, nums=None):
         if nums is None:
             nums = []
@@ -36,3 +37,14 @@ class SortedList:
 
     def __str__(self):
         return str(self.sl)
+
+    def copy(self):
+        x = SortedList()
+        x.sl = self.sl
+        return x
+
+    def pop(self, idx: int):
+        return self.sl.pop(idx)
+
+    def _insert(self, idx: int, x):
+        return self.sl.insert(idx, x)

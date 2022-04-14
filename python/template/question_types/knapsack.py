@@ -53,11 +53,11 @@ def n_k(W: List[int], C: int) -> int:
     dp = [0] * (C + 1)
     dp[0] = 1
     for i in range(len(W)):
-        for j in reversed(range(C + 1)):
-            if j - W[i] >= 0:
-                x = dp[j - W[i]]
-            else:
-                x = 0
+        # for j in range(C + 1):  # 每个货币无数次
+        for j in reversed(range(C + 1)):  # 每个货币只能选一次
+            if j - W[i] < 0:
+                continue
+            x = dp[j - W[i]]
             dp[j] += x
     return dp[C]
 
@@ -67,11 +67,11 @@ def k(W: List[int], V: List[int], C: int) -> int:
     # 其中W[i] >= 0
     dp = [0] * (C + 1)
     for i in range(len(W)):
+        # 选择
         for j in reversed(range(C + 1)):
-            if j - W[i] >= 0:
-                x = dp[j - W[i]] + V[i]
-            else:
-                x = 0
+            if j - W[i] < 0:
+                continue
+            x = dp[j - W[i]] + V[i]
             dp[j] = max(dp[j], x)
     return dp[C]
 
@@ -82,10 +82,9 @@ def k_full(W: List[int], V: List[int], C: int) -> int:
     dp[0] = 0
     for i in range(len(W)):
         for j in reversed(range(C + 1)):
-            if j - W[i] >= 0 and dp[j - W[i]] != N_INF:  # !
-                x = dp[j - W[i]] + V[i]
-            else:
-                x = N_INF  # !
+            if j - W[i] < 0 or dp[j - W[i]] == N_INF:
+                continue
+            x = dp[j - W[i]] + V[i]
             dp[j] = max(dp[j], x)
     return dp[C]
 
@@ -96,10 +95,9 @@ def k_full_min(W: List[int], V: List[int], C: int) -> int:
     dp[0] = 0
     for i in range(len(W)):
         for j in reversed(range(C + 1)):
-            if j - W[i] >= 0 and dp[j - W[i]] != INF:  # !
-                x = dp[j - W[i]] + V[i]
-            else:
-                x = INF  # !
+            if j - W[i] < 0 or dp[j - W[i]] == INF:  # !
+                continue
+            x = dp[j - W[i]] + V[i]
             dp[j] = min(dp[j], x)  # !
     return dp[C]
 
@@ -109,10 +107,9 @@ def k_c(W: List[int], V: List[int], C: int) -> int:
     dp = [0] * (C + 1)
     for i in range(len(W)):
         for j in range(C + 1):  # !
-            if j - W[i] >= 0:
-                x = dp[j - W[i]] + V[i]
-            else:
-                x = 0
+            if j - W[i] < 0:
+                continue
+            x = dp[j - W[i]] + V[i]
             dp[j] = max(dp[j], x)
     return dp[C]
 
@@ -122,10 +119,9 @@ def k_c2(W: List[int], V: List[int], C: int) -> int:
     dp = [0] * (C + 1)
     for i in range(C + 1):  # !
         for j in range(len(W)):
-            if i - W[j] >= 0:
-                x = dp[i - W[j]] + V[j]
-            else:
-                x = 0
+            if i - W[j] < 0:
+                continue
+            x = dp[i - W[j]] + V[j]
             dp[i] = max(dp[i], x)
     return dp[C]
 

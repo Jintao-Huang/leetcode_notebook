@@ -3,6 +3,7 @@
 # Date:
 
 from typing import List
+from python.template.data_structure.union_find import UnionFind
 
 
 class Solution:
@@ -23,7 +24,7 @@ class Solution:
         n1, n2 = len(grid), len(grid[0])
         for i in range(n1):
             for j in range(n2):
-                if not grid[i][j] == "1":
+                if grid[i][j] == "1":
                     ans += 1
                     grid[i][j] = "0"
                     self._dfs(i, j, grid)
@@ -97,36 +98,29 @@ class Solution3:
         return ans
 
 
-from template.union_find import UnionFind
-
 
 class Solution4:
     """Union Set. Ot(N) Os(N). find和union复杂度接近Ot(1)"""
 
-    def _union_set(self, uf: UnionFind, i: int, j: int, grid: List[List[str]]) -> int:
-        directions = ((-1, 0), (1, 0), (0, -1), (0, 1))
-        n1, n2 = len(grid), len(grid[0])
-        union_num = 0
-        for d in directions:
-            pi, pj = i + d[0], j + d[1]
-            if 0 <= pi < n1 and 0 <= pj < n2:
-                if grid[pi][pj] == "1":
-                    if uf.union(i * n2 + j, pi * n2 + pj):
-                        union_num += 1
-        return union_num
 
     def numIslands(self, grid: List[List[str]]) -> int:
         ans = 0
-        n1, n2 = len(grid), len(grid[0])
-        uf = UnionFind(n1 * n2)
-        # visited ?
-        for i in range(n1):
-            for j in range(n2):
-                if grid[i][j] == "1":
-                    ans += 1
-                    ans -= self._union_set(uf, i, j, grid)
+        n, m = len(grid), len(grid[0])
+        uf = UnionFind(n * m)
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == "0":
+                    ans -= 1
+                    continue
+                base = i * m + j
+                if j != m - 1 and grid[i][j +1] == '1':
+                    right = base + 1
+                    uf.union(base, right)
+                if i != n-1 and grid[i + 1][j] == '1':
+                    down = base + m
+                    uf.union(base, down)
 
-        return ans
+        return uf.cnt + ans
 
 
 grid = [
@@ -137,6 +131,24 @@ grid = [
 ]
 
 print(Solution().numIslands(grid))
+grid = [
+    ["1", "1", "1", "1", "0"],
+    ["1", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"]
+]
 print(Solution2().numIslands(grid))
+grid = [
+    ["1", "1", "1", "1", "0"],
+    ["1", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"]
+]
 print(Solution3().numIslands(grid))
+grid = [
+    ["1", "1", "1", "1", "0"],
+    ["1", "1", "0", "1", "0"],
+    ["1", "1", "0", "0", "0"],
+    ["0", "0", "0", "0", "0"]
+]
 print(Solution4().numIslands(grid))

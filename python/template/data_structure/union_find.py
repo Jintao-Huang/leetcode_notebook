@@ -10,6 +10,7 @@ class UnionFind:
     def __init__(self, n: int):
         self._parent = [-1 for _ in range(n)]  # type: List[int]
         self._count = [1] * n  # type: List[int]  # 节点数
+        self.cnt = n
 
     def find(self, a: int) -> int:
         if self._parent[a] == -1:
@@ -31,6 +32,7 @@ class UnionFind:
         else:
             self._parent[root_a] = root_b
             self._count[root_b] += self._count[root_a]
+        self.cnt -= 1
         return True
 
 

@@ -2,6 +2,16 @@
 # Email: hjt_study@qq.com
 # Date:
 
+def is_palindrome(s: str) -> bool:
+    lo, hi = 0, len(s) - 1
+    while lo < hi:
+        if s[lo] != s[hi]:
+            return False
+        lo += 1
+        hi -= 1
+    return True
+
+
 def reverse_num(x: int) -> int:
     """Ot(LogX) Os(1). 其中Log为Log10"""
     ans = 0

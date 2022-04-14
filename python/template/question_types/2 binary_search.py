@@ -31,20 +31,6 @@ def binary_search(nums: List[int], target: int) -> bool:
     return target == nums[lo]
 
 
-def binary_search2(nums: List[int], target: int) -> int:
-    """Ot(LogN) Os(1)"""
-    lo, hi = 0, len(nums) - 1
-    while lo < hi:
-        mid = lo + (hi - lo) // 2  # 偶数时: 中点偏左
-        if target == nums[mid]:
-            return mid
-        elif nums[mid] > target:
-            hi = mid - 1
-        else:
-            lo = mid + 1
-    return lo if nums[lo] == target else -1
-
-
 def lower_bound(nums: List[int], target: int) -> int:
     lo, hi = 0, len(nums)
     while lo < hi:
@@ -68,12 +54,12 @@ def upper_bound(nums: List[int], target: int) -> int:
 
 
 def upper_bound2(nums: List[int], target: int) -> int:
-    """右边界"""
-    lo, hi = -1, len(nums) - 1
+    """右边界. 最左边]"""
+    lo, hi = 0, len(nums) - 1
     while lo < hi:
-        mid = lo + (hi - lo + 1) // 2
+        mid = lo + (hi - lo + 1) // 2  # !
         if nums[mid] <= target:
-            lo = mid
+            lo = mid  # !
         else:
             hi = mid - 1
     return lo

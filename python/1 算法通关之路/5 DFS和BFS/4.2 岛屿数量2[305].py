@@ -3,7 +3,7 @@
 # Date: 
 
 
-from template.union_find import UnionFind
+from python.template.data_structure.union_find import UnionFind
 
 from typing import List
 
