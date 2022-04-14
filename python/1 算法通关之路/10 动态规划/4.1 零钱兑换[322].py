@@ -10,9 +10,9 @@ class Solution:
 
     def coinChange(self, coins: List[int], amount: int) -> int:
         # 选择: coins中选
-        # dp[i] 凑成i元所需的最少硬币个数.
-        # base: dp[0]=0
-        # 转移: dp[i]=min(dp[i-ci]) 任意ci属于coins
+        # dp_N^2[i] 凑成i元所需的最少硬币个数.
+        # base: dp_N^2[0]=0
+        # 转移: dp_N^2[i]=min(dp_N^2[i-ci]) 任意ci属于coins
         dp = [int(1e8)] * (amount + 1)
         dp[0] = 0
         for i in range(1, amount + 1):

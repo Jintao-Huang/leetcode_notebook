@@ -152,7 +152,7 @@ class Solution4:
             dp[i] = 1
         #
         for i in reversed(range(n)):
-            prev = 0  # dp[i + 1][j - 1]
+            prev = 0  # dp_N^2[i + 1][j - 1]
             for j in range(i + 2, n + 1):
                 temp = dp[j]
                 if s[i] == s[j - 1]:

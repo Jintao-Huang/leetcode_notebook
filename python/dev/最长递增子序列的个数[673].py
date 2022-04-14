@@ -9,7 +9,7 @@ class Solution:
     def findNumberOfLIS(self, nums: List[int]) -> int:
         # C: 之前的每个数
         # S: [i]. 以i结束, 长度
-        # dp[i]; dp[i-k]
+        # dp_N^2[i]; dp_N^2[i-k]
         dp = [1] * len(nums)
         dp2 = [1] * len(nums)  #
         for i in range(len(nums)):

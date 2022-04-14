@@ -8,7 +8,7 @@ from typing import List
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         # C: 卖出, 买入, 不变
-        # dp[i][j]: 第j天, i=0不持有股票+下回合冻结, i=1不持有股票, i=2持有股票. 最大收益.
+        # dp_N^2[i][j]: 第j天, i=0不持有股票+下回合冻结, i=1不持有股票, i=2持有股票. 最大收益.
         dp = [[0] * len(prices) for _ in range(3)]
         dp[0][0] = 0
         dp[1][0] = 0

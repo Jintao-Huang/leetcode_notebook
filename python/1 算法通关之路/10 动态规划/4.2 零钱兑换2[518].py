@@ -9,10 +9,10 @@ class Solution2:
     """动态规划. Ot(NM) Os(NM). 其中N=amount, M=len(coins)"""
 
     def change(self, amount: int, coins: List[int]) -> int:
-        # 选择: 取c: dp[i][j-c], 不取c: dp[i-1][j]. 选择与dp维度, 存在关联.
-        # dp[i][j]. 由前i种coins, 凑成j的组合数.
-        # base: dp[0][j] = 1
-        # 转移: dp[i][j] = dp[i][j - c] + dp[i - 1][j]
+        # 选择: 取c: dp_N^2[i][j-c], 不取c: dp_N^2[i-1][j]. 选择与dp维度, 存在关联.
+        # dp_N^2[i][j]. 由前i种coins, 凑成j的组合数.
+        # base: dp_N^2[0][j] = 1
+        # 转移: dp_N^2[i][j] = dp_N^2[i][j - c] + dp_N^2[i - 1][j]
         dp = [[0] * (amount + 1) for _ in range(len(coins))]
         for i in range(len(coins)):
             c = coins[i]

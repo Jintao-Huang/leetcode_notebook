@@ -10,8 +10,8 @@ class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         # C: 买, 卖, 不变
         # S: 是否含股票, 前i天, 交易j次最高收益.
-        # dp[0][i][j]: dp[1][i-1][j-1]; dp[0][i-1][j]
-        # dp[1][i][j]: dp[0][i-1][j]; dp[1][i-1][j]
+        # dp_N^2[0][i][j]: dp_N^2[1][i-1][j-1]; dp_N^2[0][i-1][j]
+        # dp_N^2[1][i][j]: dp_N^2[0][i-1][j]; dp_N^2[1][i-1][j]
         k = 2
         if len(prices) == 0:
             return 0

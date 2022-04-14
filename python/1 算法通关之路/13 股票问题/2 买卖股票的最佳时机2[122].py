@@ -34,7 +34,7 @@ class Solution2:
 
     def maxProfit(self, prices: List[int]) -> int:
         # C: 卖出, 买入.
-        # dp[i][j]: 第j天, i=0不持有股票, i=1持有股票的最大收益.
+        # dp_N^2[i][j]: 第j天, i=0不持有股票, i=1持有股票的最大收益.
         dp = [[0] * len(prices) for _ in range(2)]
         dp[0][0] = 0
         dp[1][0] = -prices[0]

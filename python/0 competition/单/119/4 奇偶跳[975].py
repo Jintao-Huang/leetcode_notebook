@@ -37,7 +37,7 @@ def next_le_max(nums: List[int]) -> List[int]:
 class Solution:
     def oddEvenJumps(self, arr: List[int]) -> int:
         # 选择: 单数跳/双数跳
-        # dp[i][j]. 奇数偶数, 以j为起点. 是否可行
+        # dp_N^2[i][j]. 奇数偶数, 以j为起点. 是否可行
         odd_next = next_ge_min(arr)
         even_next = next_le_max(arr)
         odd_dp = [False] * len(arr)

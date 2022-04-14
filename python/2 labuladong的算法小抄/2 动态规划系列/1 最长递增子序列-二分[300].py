@@ -8,8 +8,8 @@ from typing import List
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         # 选择: 对j增(j<i); 不增
-        # dp[i]: 以i结尾, 最长严格递增子序列长度
-        # dp[i]; dp[0:i+1]
+        # dp_N^2[i]: 以i结尾, 最长严格递增子序列长度
+        # dp_N^2[i]; dp_N^2[0:i+1]
         dp = [1] * len(nums)
         for i in range(len(nums)):
             for j in range(i):

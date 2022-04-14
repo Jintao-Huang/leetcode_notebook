@@ -7,8 +7,8 @@ class Solution:
     """超时. 动态规划."""
 
     def superEggDrop(self, k: int, n: int) -> int:
-        # dp[i][j]: i+1个蛋, 楼层数为j+1. 的最小操作次数
-        # dp[i][j]; dp[i-1][k-1], dp[i][j-k]
+        # dp_N^2[i][j]: i+1个蛋, 楼层数为j+1. 的最小操作次数
+        # dp_N^2[i][j]; dp_N^2[i-1][k-1], dp_N^2[i][j-k]
         # 选择: 选一层楼投
         dp = [[0] * (n + 1) for _ in range(k)]
         for i in range(k):
@@ -32,8 +32,8 @@ class Solution2:
     """超时. 动态规划+二分"""
 
     def superEggDrop(self, k: int, n: int) -> int:
-        # dp[i][j]: i+1个蛋, 楼层数为j+1. 的最小操作次数
-        # dp[i][j]; dp[i-1][k-1], dp[i][j-k]
+        # dp_N^2[i][j]: i+1个蛋, 楼层数为j+1. 的最小操作次数
+        # dp_N^2[i][j]; dp_N^2[i-1][k-1], dp_N^2[i][j-k]
         dp = [[0] * (n + 1) for _ in range(k)]
         for i in range(k):
             for j in range(n + 1):
