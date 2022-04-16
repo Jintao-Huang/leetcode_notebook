@@ -36,6 +36,7 @@ class RBTree:
 
     def getitem(self, x: RBTreeNode, i: int) -> RBTreeNode:
         # p194
+        # 外部调用时: x为root.
         # order statistics. 返回x为根的子树中包含第i小关键字的节点
         r = x.left.size + 1  # rank
         if i == r:
@@ -324,7 +325,10 @@ class SortedList:
         self.length += 1
 
     def search(self, x) -> RBTreeNode:
-        return self.rbt.search(x)
+        n = self.rbt.search(x)
+        if n == self.rbt.nil:
+            n = None
+        return n
 
     def remove(self, n: RBTreeNode) -> None:
         if not isinstance(n, RBTreeNode):

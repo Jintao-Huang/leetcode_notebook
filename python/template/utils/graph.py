@@ -2,7 +2,7 @@
 # Email: hjt_study@qq.com
 # Date: 
 from typing import List, Tuple
-from template.data_structure.priority_queue import PriorityQueue
+from python.template.data_structure.priority_queue import PriorityQueue
 
 
 def dijkstra(es: List[List[Tuple[int, int]]], start: int) -> List[int]:

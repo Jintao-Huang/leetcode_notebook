@@ -1,6 +1,9 @@
 # Author: Jintao Huang
 # Email: hjt_study@qq.com
-# Date: 
+# Date:
+# 线段树: 维护数据满足: 某节点维护值只依赖左右结点. (和, 最大最小...)
+# 树状数组: 只能维护前缀信息. 可以维护区间和/积, 但不能维护最大最小.
+
 class BinaryIndexedTree:
     def __init__(self, nums, is_zeros=False):
         n = len(nums)
